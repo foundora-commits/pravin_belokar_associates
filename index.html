@@ -90,16 +90,41 @@
             background: rgba(248, 249, 250, 0.95);
             backdrop-filter: blur(24px);
         }
-        
+
         /* Mobile Menu Styles */
         .mobile-menu {
             transform: translateX(100%);
             transition: transform 0.3s ease-in-out;
+            pointer-events: none;
+            touch-action: none;
+            background-color: #ffffff !important;
+            box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+            z-index: 60;                    /* ← Higher than floating button */
+                }
+
+        /* Hide floating WhatsApp button when mobile menu is open */
+        .mobile-menu.active ~ #whatsappFloat {
+            display: none !important;
         }
+
         .mobile-menu.active {
             transform: translateX(0);
+            pointer-events: auto;
+            touch-action: auto;
         }
-        
+
+        /* Backdrop */
+        .mobile-backdrop {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 40;
+        }
+        .mobile-backdrop.active {
+            display: block;
+        }
+
         /* Hamburger Animation */
         .hamburger-line {
             transition: all 0.3s ease-in-out;
@@ -118,58 +143,64 @@
 <body class="bg-surface text-on-surface font-body">
     <!-- Header / TopNavBar -->
     <header class="sticky top-0 w-full z-50 glass-header shadow-sm">
-        <nav class="flex justify-between items-center w-full px-6 py-4 max-w-7xl mx-auto">
+        <nav class="flex justify-between items-center w-full pl-5 pr-4 md:px-6 lg:px-6 py-4 max-w-7xl mx-auto">
             <div class="text-xl font-bold font-serif text-slate-950 tracking-tight">
                 Pravin Belokar & Associates
             </div>
-            
+
             <!-- Desktop Nav -->
             <div class="hidden lg:flex items-center space-gap-8 gap-8">
                 <a class="text-sm font-medium text-slate-600 hover:text-amber-700 transition-colors" href="#services">Services</a>
                 <a class="text-sm font-medium text-slate-600 hover:text-amber-700 transition-colors" href="#about">About Us</a>
                 <a class="text-sm font-medium text-slate-600 hover:text-amber-700 transition-colors" href="#contact">Contact</a>
             </div>
-            
+
             <div class="hidden lg:flex items-center gap-4">
                 <a class="flex items-center gap-2 bg-primary text-on-primary px-5 py-2.5 rounded-full text-sm font-semibold hover:bg-primary-container transition-all active:scale-95" href="https://wa.me/918669291713">
                     <span class="material-symbols-outlined text-sm">chat</span>
                     WhatsApp Consultation
                 </a>
             </div>
-            
+
             <!-- Mobile Hamburger -->
-            <button id="hamburger" class="lg:hidden hamburger flex flex-col gap-1.5 p-2">
-                <span class="hamburger-line w-6 h-0.5 bg-slate-950 block"></span>
-                <span class="hamburger-line w-6 h-0.5 bg-slate-950 block"></span>
-                <span class="hamburger-line w-6 h-0.5 bg-slate-950 block"></span>
-            </button>
-        </nav>
-        
-        <!-- Mobile Menu -->
-        <div id="mobileMenu" class="mobile-menu lg:hidden fixed top-0 right-0 h-full w-64 bg-surface shadow-2xl z-50">
-            <div class="flex flex-col h-full">
-                <div class="flex justify-end p-6">
-                    <button id="closeMenu" class="text-slate-600">
-                        <span class="material-symbols-outlined text-3xl">close</span>
-                    </button>
-                </div>
-                <div class="flex flex-col gap-6 px-6">
-                    <a class="text-base font-medium text-slate-600 hover:text-amber-700 transition-colors" href="#services">Services</a>
-                    <a class="text-base font-medium text-slate-600 hover:text-amber-700 transition-colors" href="#about">About Us</a>
-                    <a class="text-base font-medium text-slate-600 hover:text-amber-700 transition-colors" href="#contact">Contact</a>
-                    <a class="flex items-center gap-2 bg-primary text-on-primary px-5 py-3 rounded-full text-sm font-semibold hover:bg-primary-container transition-all" href="https://wa.me/918669291713">
-                        <span class="material-symbols-outlined text-sm">chat</span>
-                        WhatsApp Consultation
-                    </a>
-                    <button class="text-slate-600 text-sm font-medium px-4 py-2 hover:bg-slate-100/50 rounded-lg transition-all text-left">Client Login</button>
-                </div>
-            </div>
-        </div>
-    </header>
+            <!-- Mobile Hamburger -->
+<button id="hamburger" class="lg:hidden hamburger flex flex-col gap-1.5 p-2" type="button" aria-label="Open menu">
+    <span class="hamburger-line w-6 h-0.5 bg-slate-950 block"></span>
+    <span class="hamburger-line w-6 h-0.5 bg-slate-950 block"></span>
+    <span class="hamburger-line w-6 h-0.5 bg-slate-950 block"></span>
+</button>
+</nav>
+</header>
+
+<!-- Backdrop (moved outside header) -->
+<div id="mobileBackdrop" class="mobile-backdrop lg:hidden"></div>
+
+<!-- Mobile Menu (moved outside header - this fixes the transparency) -->
+<div id="mobileMenu" class="mobile-menu lg:hidden fixed top-0 right-0 h-full w-64 bg-white shadow-2xl z-50" style="background-color: #ffffff !important;">
+    <div class="flex flex-col h-full">
+    <div class="flex justify-between items-center p-6 border-b border-surface-container-high">
+        <div class="text-2xl font-bold font-serif text-primary">Menu</div>
+        <button id="closeMenu" type="button" aria-label="Close menu" class="text-slate-600">
+            <span class="material-symbols-outlined text-3xl">close</span>
+        </button>
+    </div>
+       <div class="flex flex-col gap-6 mt-6 px-6">
+    <a class="text-base font-medium text-slate-600 hover:text-amber-700 transition-colors" href="#services">Services</a>
+    <a class="text-base font-medium text-slate-600 hover:text-amber-700 transition-colors" href="#about">About Us</a>
+    <a class="text-base font-medium text-slate-600 hover:text-amber-700 transition-colors" href="#contact">Contact</a>
+    
+    <!-- WhatsApp Button for Mobile Menu -->
+    <a class="flex items-center justify-center gap-2 bg-primary text-on-primary px-8 py-3 rounded-[8px] text-sm font-semibold hover:bg-primary-container transition-all active:scale-95" href="https://wa.me/918669291713">
+        <span class="material-symbols-outlined text-sm">chat</span>
+        Whatsapp
+    </a>
+</div>
+    </div>
+</div>
 
     <main>
         <!-- Hero Section -->
-        <section class="relative bg-primary min-h-[870px] flex items-center overflow-hidden">
+        <section class="relative bg-primary min-h-[750px] lg:min-h-[660px] flex items-center overflow-hidden">
             <div class="absolute inset-0 z-0">
                 <!-- Desktop Image -->
                 <img alt="Modern Office" class="hidden lg:block w-full h-full object-cover opacity-20" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDZxn6KQIbZq3Ks-E5hBd6Fl0nBZ7nenEO4XwJMY2Btz95acsRkJgpm7P598SEUcr8Dzt9GbfSHCAZPiz2vTJv51fe-H1FOaveE-rkFHjH2BZNSdgVfv_kCL5lKGhjFnlC9vAVese7xMdOuSTMK97SE1-EfN8ivoMXIONjM-we0HuXG0gMAM6EWrcbB1aM1If5zd9ygzSVqj2tl9kna34M_5C_pwV0am_AJDjbnuAH8Alje2bmxEBLQmW5oBmTsbSUwIJNwNtBxMEoL"/>
@@ -177,7 +208,7 @@
                 <img alt="Modern Office" class="lg:hidden w-full h-full object-cover opacity-20" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBkFxAeBNDpfVZvf9xu_IR68vCX7JusBHIc0RbQI4HML7ZQdDZ7VRmW9eFINTGtCPTLnkKPyzmsF2D5TtgHN2KArk6I15_Y0kPz-fBiMmzIsH0uJUj_157qW3lnCbh9OLkmeG3RwB_ySZpJZeQp_XvKf3sXWr17J8O0HfoqCh7jXhrY1B5aLIOVRKRGmtfsxeqUZcGXypaBOJqrxs_SMyH2n7HOkqGRbeS_Ioglnpw0Oz4s59HqmDrA0ZJbUOFJ1uclrbg0FEdWDhFr"/>
                 <div class="absolute inset-0 bg-gradient-to-r from-primary via-primary/80 to-transparent"></div>
             </div>
-            <div class="relative z-10 max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                 <div class="space-y-8">
                     <div class="inline-flex items-center gap-2 bg-secondary-container/10 border border-secondary-container/20 px-4 py-1.5 rounded-full">
                         <span class="material-symbols-outlined text-secondary-fixed-dim text-lg" style="font-variation-settings: 'FILL' 1;">verified_user</span>
@@ -561,7 +592,7 @@
                                 </div>
                                 <button class="w-full bg-primary text-on-primary font-bold py-4 rounded-xl flex items-center justify-center gap-3 hover:bg-primary-container transition-all shadow-lg shadow-primary/10" type="submit">
                                     <span class="material-symbols-outlined">send</span>
-                                    Submit Request to WhatsApp
+                                    Submit
                                 </button>
                             </form>
                         </div>
@@ -573,8 +604,8 @@
 
     <!-- Footer -->
     <footer class="bg-slate-950 dark:bg-black text-slate-100 py-16">
-        <div class="max-w-7xl mx-auto px-8 grid grid-cols-1 md:grid-cols-4 gap-12">
-            <div class="col-span-1 md:col-span-1 space-y-6">
+        <div class="max-w-7xl mx-auto px-8 grid grid-cols-1 md:grid-cols-3 gap-12">
+            <div class="col-span-1 space-y-6">
                 <div class="text-lg font-serif font-semibold text-amber-500">Pravin Belokar & Associates</div>
                 <p class="text-slate-400 text-xs leading-relaxed max-w-xs">
                     Elite accounting and financial consultancy services for high-growth enterprises and individuals across India. Founded on trust, sustained by excellence.
@@ -606,30 +637,21 @@
                     <li><a class="text-slate-400 text-xs hover:text-slate-100 hover:translate-x-1 transition-all inline-block" href="#">Privacy Policy</a></li>
                 </ul>
             </div>
-            <div class="space-y-6">
-                <h4 class="text-amber-500 text-xs font-bold uppercase tracking-widest mb-6">Newsletter</h4>
-                <p class="text-slate-400 text-xs">Stay updated with Indian tax law changes.</p>
-                <div class="flex">
-                    <input class="bg-slate-900 border-none text-xs p-3 rounded-l-lg focus:ring-1 focus:ring-amber-500 w-full" placeholder="Email Address" type="email"/>
-                    <button class="bg-amber-500 text-slate-950 p-3 rounded-r-lg font-bold">
-                        <span class="material-symbols-outlined text-sm">chevron_right</span>
-                    </button>
-                </div>
-            </div>
         </div>
         <div class="max-w-7xl mx-auto px-8 mt-16 pt-8 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4 text-slate-500 text-xs">
             <div>© 2024 Pravin Belokar & Associates. Chartered Accountants. All rights reserved.</div>
-            <div class="flex gap-8">
-                <a class="hover:text-slate-100 transition-colors" href="#">Terms of Service</a>
-                <a class="hover:text-slate-100 transition-colors" href="#">Cookies</a>
-            </div>
+            
         </div>
     </footer>
 
     <!-- Floating Action Button for WhatsApp -->
-    <a class="fixed bottom-8 right-8 bg-[#25D366] text-white p-4 rounded-full shadow-2xl hover:scale-110 active:scale-95 transition-all z-40 flex items-center justify-center group" href="https://wa.me/918669291713">
+    <!-- Floating Action Button for WhatsApp -->
+    <a id="whatsappFloat" 
+    class="fixed bottom-8 right-8 bg-[#25D366] text-white h-14 min-w-[56px] rounded-2xl shadow-2xl z-50 flex items-center px-4 group opacity-0 translate-y-8 pointer-events-none" 
+    href="https://wa.me/918669291713">
         <span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">chat</span>
-        <span class="max-w-0 overflow-hidden group-hover:max-w-xs group-hover:ml-3 transition-all duration-500 whitespace-nowrap font-bold text-sm">Enquire Now</span>
+        <!-- Text appears only on lg+ with smooth unfold -->
+        <span class="max-w-0 overflow-hidden group-hover:max-w-xs group-hover:ml-3 transition-all duration-500 whitespace-nowrap font-bold text-sm hidden lg:inline">Enquire Now</span>
     </a>
 
     <script>
@@ -637,54 +659,63 @@
         const hamburger = document.getElementById('hamburger');
         const mobileMenu = document.getElementById('mobileMenu');
         const closeMenu = document.getElementById('closeMenu');
+        const mobileBackdrop = document.getElementById('mobileBackdrop');
 
-        hamburger.addEventListener('click', () => {
+        function openMenu() {
             mobileMenu.classList.add('active');
+            mobileBackdrop.classList.add('active');
             hamburger.classList.add('active');
-        });
+            document.body.style.overflow = 'hidden';
+        }
 
-        closeMenu.addEventListener('click', () => {
+        function closeMenuFn() {
             mobileMenu.classList.remove('active');
+            mobileBackdrop.classList.remove('active');
             hamburger.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        hamburger.addEventListener('click', function(e) {
+            e.stopPropagation();
+            openMenu();
         });
 
-        // Close menu when clicking on a link
+        closeMenu.addEventListener('click', function(e) {
+            e.stopPropagation();
+            closeMenuFn();
+        });
+
+        mobileBackdrop.addEventListener('click', closeMenuFn);
+
+        // Close menu when clicking on a nav link
         const mobileLinks = mobileMenu.querySelectorAll('a');
         mobileLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.remove('active');
-                hamburger.classList.remove('active');
-            });
+            link.addEventListener('click', closeMenuFn);
         });
 
-        // Close menu when clicking outside
-        document.addEventListener('click', (e) => {
-            if (!mobileMenu.contains(e.target) && !hamburger.contains(e.target) && mobileMenu.classList.contains('active')) {
-                mobileMenu.classList.remove('active');
-                hamburger.classList.remove('active');
+        // Prevent touch events on the closed menu from firing
+        mobileMenu.addEventListener('touchstart', function(e) {
+            if (!mobileMenu.classList.contains('active')) {
+                e.stopPropagation();
             }
-        });
+        }, { passive: true });
 
         // WhatsApp Form Submission
         document.getElementById('consultationForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            
+
             const name = document.getElementById('userName').value;
             const phone = document.getElementById('userPhone').value;
             const service = document.getElementById('userService').value;
             const message = document.getElementById('userMessage').value;
-            
-            // Construct WhatsApp message
+
             let whatsappMessage = `Hi, my name is ${name}. I need help with ${service}. My number is ${phone}.`;
-            
+
             if (message.trim() !== '') {
                 whatsappMessage += ` Additional details: ${message}`;
             }
-            
-            // Encode the message for URL
+
             const encodedMessage = encodeURIComponent(whatsappMessage);
-            
-            // Redirect to WhatsApp
             window.open(`https://wa.me/918669291713?text=${encodedMessage}`, '_blank');
         });
 
@@ -704,6 +735,22 @@
                 }
             });
         });
+        // Floating WhatsApp button - appears only after scrolling down
+        const whatsappFloat = document.getElementById('whatsappFloat');
+
+        function toggleFloatButton() {
+            if (window.scrollY > 300) {
+                whatsappFloat.classList.remove('opacity-0', 'translate-y-8', 'pointer-events-none');
+                whatsappFloat.classList.add('opacity-100', 'translate-y-0', 'pointer-events-auto');
+            } else {
+                whatsappFloat.classList.add('opacity-0', 'translate-y-8', 'pointer-events-none');
+                whatsappFloat.classList.remove('opacity-100', 'translate-y-0', 'pointer-events-auto');
+            }
+        }
+
+        window.addEventListener('scroll', toggleFloatButton);
+        // Initial check in case page is already scrolled
+        toggleFloatButton();
     </script>
 </body>
 </html>
