@@ -99,10 +99,9 @@
             touch-action: none;
             background-color: #ffffff !important;
             box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
-            z-index: 60;                    /* ← Higher than floating button */
-                }
+            z-index: 60;
+        }
 
-        /* Hide floating WhatsApp button when mobile menu is open */
         .mobile-menu.active ~ #whatsappFloat {
             display: none !important;
         }
@@ -138,6 +137,28 @@
         .hamburger.active .hamburger-line:nth-child(3) {
             transform: rotate(-45deg) translate(7px, -6px);
         }
+
+        /* Hero Slideshow */
+        .hero-slide {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            transition: opacity 1.2s ease-in-out;
+            background-size: cover;
+            background-position: center;
+        }
+        .hero-slide.active {
+            opacity: 1;
+        }
+
+        /* Service card image */
+        .service-card-img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 0.5rem 0.5rem 0 0;
+            display: block;
+        }
     </style>
 </head>
 <body class="bg-surface text-on-surface font-body">
@@ -156,59 +177,68 @@
             </div>
 
             <div class="hidden lg:flex items-center gap-4">
-                <a class="flex items-center gap-2 bg-primary text-on-primary px-5 py-2.5 rounded-full text-sm font-semibold hover:bg-primary-container transition-all active:scale-95" href="https://wa.me/918669291713">
+                <a class="flex items-center gap-2 bg-primary text-on-primary px-5 py-2.5 rounded-full text-sm font-semibold hover:bg-primary-container transition-all active:scale-95" href="https://wa.me/918669291713?text=Hello%2C%20I%20would%20like%20to%20consult%20with%20Pravin%20Belokar%20%26%20Associates%20regarding%20financial%20services.">
                     <span class="material-symbols-outlined text-sm">chat</span>
                     WhatsApp Consultation
                 </a>
             </div>
 
             <!-- Mobile Hamburger -->
-            <!-- Mobile Hamburger -->
-<button id="hamburger" class="lg:hidden hamburger flex flex-col gap-1.5 p-2" type="button" aria-label="Open menu">
-    <span class="hamburger-line w-6 h-0.5 bg-slate-950 block"></span>
-    <span class="hamburger-line w-6 h-0.5 bg-slate-950 block"></span>
-    <span class="hamburger-line w-6 h-0.5 bg-slate-950 block"></span>
-</button>
-</nav>
-</header>
+            <button id="hamburger" class="lg:hidden hamburger flex flex-col gap-1.5 p-2" type="button" aria-label="Open menu">
+                <span class="hamburger-line w-6 h-0.5 bg-slate-950 block"></span>
+                <span class="hamburger-line w-6 h-0.5 bg-slate-950 block"></span>
+                <span class="hamburger-line w-6 h-0.5 bg-slate-950 block"></span>
+            </button>
+        </nav>
+    </header>
 
-<!-- Backdrop (moved outside header) -->
-<div id="mobileBackdrop" class="mobile-backdrop lg:hidden"></div>
+    <!-- Backdrop -->
+    <div id="mobileBackdrop" class="mobile-backdrop lg:hidden"></div>
 
-<!-- Mobile Menu (moved outside header - this fixes the transparency) -->
-<div id="mobileMenu" class="mobile-menu lg:hidden fixed top-0 right-0 h-full w-64 bg-white shadow-2xl z-50" style="background-color: #ffffff !important;">
-    <div class="flex flex-col h-full">
-    <div class="flex justify-between items-center p-6 border-b border-surface-container-high">
-        <div class="text-2xl font-bold font-serif text-primary">Menu</div>
-        <button id="closeMenu" type="button" aria-label="Close menu" class="text-slate-600">
-            <span class="material-symbols-outlined text-3xl">close</span>
-        </button>
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="mobile-menu lg:hidden fixed top-0 right-0 h-full w-64 bg-white shadow-2xl z-50" style="background-color: #ffffff !important;">
+        <div class="flex flex-col h-full">
+            <div class="flex justify-between items-center p-6 border-b border-surface-container-high">
+                <div class="text-2xl font-bold font-serif text-primary">Menu</div>
+                <button id="closeMenu" type="button" aria-label="Close menu" class="text-slate-600">
+                    <span class="material-symbols-outlined text-3xl">close</span>
+                </button>
+            </div>
+            <div class="flex flex-col gap-6 mt-6 px-6">
+                <a class="text-base font-medium text-slate-600 hover:text-amber-700 transition-colors" href="#services">Services</a>
+                <a class="text-base font-medium text-slate-600 hover:text-amber-700 transition-colors" href="#about">About Us</a>
+                <a class="text-base font-medium text-slate-600 hover:text-amber-700 transition-colors" href="#contact">Contact</a>
+                <a class="flex items-center justify-center gap-2 bg-primary text-on-primary px-8 py-3 rounded-[8px] text-sm font-semibold hover:bg-primary-container transition-all active:scale-95" href="https://wa.me/918669291713?text=Hello%2C%20I%20would%20like%20to%20consult%20with%20Pravin%20Belokar%20%26%20Associates%20regarding%20financial%20services.">
+                    <span class="material-symbols-outlined text-sm">chat</span>
+                    Whatsapp
+                </a>
+            </div>
+        </div>
     </div>
-       <div class="flex flex-col gap-6 mt-6 px-6">
-    <a class="text-base font-medium text-slate-600 hover:text-amber-700 transition-colors" href="#services">Services</a>
-    <a class="text-base font-medium text-slate-600 hover:text-amber-700 transition-colors" href="#about">About Us</a>
-    <a class="text-base font-medium text-slate-600 hover:text-amber-700 transition-colors" href="#contact">Contact</a>
-    
-    <!-- WhatsApp Button for Mobile Menu -->
-    <a class="flex items-center justify-center gap-2 bg-primary text-on-primary px-8 py-3 rounded-[8px] text-sm font-semibold hover:bg-primary-container transition-all active:scale-95" href="https://wa.me/918669291713">
-        <span class="material-symbols-outlined text-sm">chat</span>
-        Whatsapp
-    </a>
-</div>
-    </div>
-</div>
 
     <main>
-        <!-- Hero Section -->
-        <section class="relative bg-primary min-h-[750px] lg:min-h-[660px] flex items-center overflow-hidden">
-            <div class="absolute inset-0 z-0">
-                <!-- Desktop Image -->
-                <img alt="Modern Office" class="hidden lg:block w-full h-full object-cover opacity-20" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDZxn6KQIbZq3Ks-E5hBd6Fl0nBZ7nenEO4XwJMY2Btz95acsRkJgpm7P598SEUcr8Dzt9GbfSHCAZPiz2vTJv51fe-H1FOaveE-rkFHjH2BZNSdgVfv_kCL5lKGhjFnlC9vAVese7xMdOuSTMK97SE1-EfN8ivoMXIONjM-we0HuXG0gMAM6EWrcbB1aM1If5zd9ygzSVqj2tl9kna34M_5C_pwV0am_AJDjbnuAH8Alje2bmxEBLQmW5oBmTsbSUwIJNwNtBxMEoL"/>
-                <!-- Mobile/Tablet Image -->
-                <img alt="Modern Office" class="lg:hidden w-full h-full object-cover opacity-20" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBkFxAeBNDpfVZvf9xu_IR68vCX7JusBHIc0RbQI4HML7ZQdDZ7VRmW9eFINTGtCPTLnkKPyzmsF2D5TtgHN2KArk6I15_Y0kPz-fBiMmzIsH0uJUj_157qW3lnCbh9OLkmeG3RwB_ySZpJZeQp_XvKf3sXWr17J8O0HfoqCh7jXhrY1B5aLIOVRKRGmtfsxeqUZcGXypaBOJqrxs_SMyH2n7HOkqGRbeS_Ioglnpw0Oz4s59HqmDrA0ZJbUOFJ1uclrbg0FEdWDhFr"/>
-                <div class="absolute inset-0 bg-gradient-to-r from-primary via-primary/80 to-transparent"></div>
+        <!-- Hero Section with Auto-Sliding Background -->
+        <section class="relative bg-primary min-h-[750px] lg:min-h-[540px] flex items-center overflow-hidden">
+
+            <!-- Desktop Slideshow (lg+) — landscape images -->
+            <div class="hero-slideshow hidden lg:block absolute inset-0 z-0">
+                <div class="hero-slide active" style="background-image: url('https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=1600&q=80&fit=crop');"></div>
+                <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=1600&q=80&fit=crop');"></div>
+                <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=1600&q=80&fit=crop');"></div>
+                <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1521791136064-7986c2920216?w=1600&q=80&fit=crop');"></div>
+                <div class="absolute inset-0 bg-gradient-to-r from-primary via-primary/85 to-primary/60"></div>
             </div>
-            <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+
+            <!-- Mobile/Tablet Slideshow (sm + md) — portrait/vertical images -->
+            <div class="hero-slideshow lg:hidden absolute inset-0 z-0">
+                <div class="hero-slide active" style="background-image: url('https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=800&q=80&fit=crop&crop=top');"></div>
+                <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1664575197229-3bbebc281874?w=800&q=80&fit=crop&crop=top');"></div>
+                <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1568992687947-868a62a9f521?w=800&q=80&fit=crop&crop=top');"></div>
+                <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=800&q=80&fit=crop&crop=top');"></div>
+                <div class="absolute inset-0 bg-gradient-to-b from-primary/90 via-primary/80 to-primary/70"></div>
+            </div>
+
+            <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-10 grid grid-cols-1 gap-12 items-center">
                 <div class="space-y-8">
                     <div class="inline-flex items-center gap-2 bg-secondary-container/10 border border-secondary-container/20 px-4 py-1.5 rounded-full">
                         <span class="material-symbols-outlined text-secondary-fixed-dim text-lg" style="font-variation-settings: 'FILL' 1;">verified_user</span>
@@ -230,19 +260,10 @@
                         </a>
                     </div>
                 </div>
-                <div class="hidden lg:block">
-                    <!-- Decorative Element -->
-                    <div class="relative p-8">
-                        <div class="absolute top-0 right-0 w-64 h-64 bg-secondary/10 rounded-full blur-3xl"></div>
-                        <div class="bg-surface-container-lowest p-1 rounded-xl shadow-2xl rotate-3">
-                            <img alt="Indian Professionals" class="rounded-lg" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBkFxAeBNDpfVZvf9xu_IR68vCX7JusBHIc0RbQI4HML7ZQdDZ7VRmW9eFINTGtCPTLnkKPyzmsF2D5TtgHN2KArk6I15_Y0kPz-fBiMmzIsH0uJUj_157qW3lnCbh9OLkmeG3RwB_ySZpJZeQp_XvKf3sXWr17J8O0HfoqCh7jXhrY1B5aLIOVRKRGmtfsxeqUZcGXypaBOJqrxs_SMyH2n7HOkqGRbeS_Ioglnpw0Oz4s59HqmDrA0ZJbUOFJ1uclrbg0FEdWDhFr"/>
-                        </div>
-                    </div>
-                </div>
             </div>
         </section>
 
-        <!-- Services Section (Bento Grid Style) -->
+        <!-- Services Section -->
         <section class="py-24 px-6 bg-surface" id="services">
             <div class="max-w-7xl mx-auto">
                 <div class="text-center mb-16 space-y-4">
@@ -250,225 +271,247 @@
                     <p class="text-on-surface-variant max-w-2xl mx-auto">Comprehensive fiscal solutions designed to empower businesses across the Indian subcontinent.</p>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
                     <!-- Service Card 1 -->
-                    <div class="bg-surface-container-low p-8 rounded-xl flex flex-col justify-between hover:bg-surface-container-high transition-all duration-300 group editorial-shadow">
+                    <div class="bg-surface-container-low rounded-xl flex flex-col justify-between hover:bg-surface-container-high transition-all duration-300 group editorial-shadow overflow-hidden">
                         <div>
-                            <div class="w-12 h-12 bg-primary text-on-primary rounded-lg flex items-center justify-center mb-6">
-                                <span class="material-symbols-outlined">account_balance</span>
+                            <img src="./accounting&bookkeeping.jpg" alt="Accounting & Bookkeeping" class="service-card-img"/>
+                            <div class="p-8">
+                                <h3 class="font-headline text-2xl mb-3 text-primary">Accounting & Bookkeeping</h3>
+                                <p class="text-on-surface-variant text-sm mb-6">Automated precision for your daily financial records, ensuring audit-ready books 24/7.</p>
+                                <ul class="space-y-2 mb-8">
+                                    <li class="flex items-center gap-2 text-xs font-medium text-primary">
+                                        <span class="material-symbols-outlined text-secondary text-sm">check_circle</span> Real-time Cash Flow Tracking
+                                    </li>
+                                    <li class="flex items-center gap-2 text-xs font-medium text-primary">
+                                        <span class="material-symbols-outlined text-secondary text-sm">check_circle</span> Digital Ledger Maintenance
+                                    </li>
+                                </ul>
                             </div>
-                            <h3 class="font-headline text-2xl mb-3 text-primary">Accounting & Bookkeeping</h3>
-                            <p class="text-on-surface-variant text-sm mb-6">Automated precision for your daily financial records, ensuring audit-ready books 24/7.</p>
-                            <ul class="space-y-2 mb-8">
-                                <li class="flex items-center gap-2 text-xs font-medium text-primary">
-                                    <span class="material-symbols-outlined text-secondary text-sm">check_circle</span> Real-time Cash Flow Tracking
-                                </li>
-                                <li class="flex items-center gap-2 text-xs font-medium text-primary">
-                                    <span class="material-symbols-outlined text-secondary text-sm">check_circle</span> Digital Ledger Maintenance
-                                </li>
-                            </ul>
                         </div>
-                        <a class="inline-flex items-center text-secondary font-bold text-sm gap-2 group-hover:gap-4 transition-all" href="https://wa.me/918669291713?text=Hi%20Pravin%20Belokar%20%26%20Associates%2C%20I%20want%20help%20with%20Accounting%20%26%20Bookkeeping">
-                            Enquire on WhatsApp <span class="material-symbols-outlined">arrow_right_alt</span>
-                        </a>
+                        <div class="px-8 pb-8">
+                            <a class="inline-flex items-center text-secondary font-bold text-sm gap-2 group-hover:gap-4 transition-all" href="https://wa.me/918669291713?text=Hi%20Pravin%20Belokar%20%26%20Associates%2C%20I%20want%20help%20with%20Accounting%20%26%20Bookkeeping">
+                                Enquire on WhatsApp <span class="material-symbols-outlined">arrow_right_alt</span>
+                            </a>
+                        </div>
                     </div>
 
                     <!-- Service Card 2 -->
-                    <div class="bg-surface-container-low p-8 rounded-xl flex flex-col justify-between hover:bg-surface-container-high transition-all duration-300 group editorial-shadow">
+                    <div class="bg-surface-container-low rounded-xl flex flex-col justify-between hover:bg-surface-container-high transition-all duration-300 group editorial-shadow overflow-hidden">
                         <div>
-                            <div class="w-12 h-12 bg-secondary text-on-secondary rounded-lg flex items-center justify-center mb-6">
-                                <span class="material-symbols-outlined">receipt_long</span>
+                            <img src="./tax_services.jpg" alt="Taxation Services" class="service-card-img"/>
+                            <div class="p-8">
+                                <h3 class="font-headline text-2xl mb-3 text-primary">Taxation Services</h3>
+                                <p class="text-on-surface-variant text-sm mb-6">Optimized tax planning and seamless filing for Income Tax, GST, and Indirect Taxes.</p>
+                                <ul class="space-y-2 mb-8">
+                                    <li class="flex items-center gap-2 text-xs font-medium text-primary">
+                                        <span class="material-symbols-outlined text-secondary text-sm">check_circle</span> GST Return Compliance
+                                    </li>
+                                    <li class="flex items-center gap-2 text-xs font-medium text-primary">
+                                        <span class="material-symbols-outlined text-secondary text-sm">check_circle</span> Strategic Tax Shielding
+                                    </li>
+                                </ul>
                             </div>
-                            <h3 class="font-headline text-2xl mb-3 text-primary">Taxation Services</h3>
-                            <p class="text-on-surface-variant text-sm mb-6">Optimized tax planning and seamless filing for Income Tax, GST, and Indirect Taxes.</p>
-                            <ul class="space-y-2 mb-8">
-                                <li class="flex items-center gap-2 text-xs font-medium text-primary">
-                                    <span class="material-symbols-outlined text-secondary text-sm">check_circle</span> GST Return Compliance
-                                </li>
-                                <li class="flex items-center gap-2 text-xs font-medium text-primary">
-                                    <span class="material-symbols-outlined text-secondary text-sm">check_circle</span> Strategic Tax Shielding
-                                </li>
-                            </ul>
                         </div>
-                        <a class="inline-flex items-center text-secondary font-bold text-sm gap-2 group-hover:gap-4 transition-all" href="https://wa.me/918669291713?text=Hi%20Pravin%20Belokar%20%26%20Associates%2C%20I%20want%20help%20with%20Taxation%20Services">
-                            Enquire on WhatsApp <span class="material-symbols-outlined">arrow_right_alt</span>
-                        </a>
+                        <div class="px-8 pb-8">
+                            <a class="inline-flex items-center text-secondary font-bold text-sm gap-2 group-hover:gap-4 transition-all" href="https://wa.me/918669291713?text=Hi%20Pravin%20Belokar%20%26%20Associates%2C%20I%20want%20help%20with%20Taxation%20Services">
+                                Enquire on WhatsApp <span class="material-symbols-outlined">arrow_right_alt</span>
+                            </a>
+                        </div>
                     </div>
 
                     <!-- Service Card 3 -->
-                    <div class="bg-surface-container-low p-8 rounded-xl flex flex-col justify-between hover:bg-surface-container-high transition-all duration-300 group editorial-shadow">
+                    <div class="bg-surface-container-low rounded-xl flex flex-col justify-between hover:bg-surface-container-high transition-all duration-300 group editorial-shadow overflow-hidden">
                         <div>
-                            <div class="w-12 h-12 bg-primary text-on-primary rounded-lg flex items-center justify-center mb-6">
-                                <span class="material-symbols-outlined">rule</span>
+                            <img src="./audit&assurance.jpg" alt="Audit & Assurance" class="service-card-img"/>
+                            <div class="p-8">
+                                <h3 class="font-headline text-2xl mb-3 text-primary">Audit & Assurance</h3>
+                                <p class="text-on-surface-variant text-sm mb-6">Independent, rigorous auditing that builds stakeholder trust and ensures statutory adherence.</p>
+                                <ul class="space-y-2 mb-8">
+                                    <li class="flex items-center gap-2 text-xs font-medium text-primary">
+                                        <span class="material-symbols-outlined text-secondary text-sm">check_circle</span> Statutory Audit Compliance
+                                    </li>
+                                    <li class="flex items-center gap-2 text-xs font-medium text-primary">
+                                        <span class="material-symbols-outlined text-secondary text-sm">check_circle</span> Internal Risk Assessments
+                                    </li>
+                                </ul>
                             </div>
-                            <h3 class="font-headline text-2xl mb-3 text-primary">Audit & Assurance</h3>
-                            <p class="text-on-surface-variant text-sm mb-6">Independent, rigorous auditing that builds stakeholder trust and ensures statutory adherence.</p>
-                            <ul class="space-y-2 mb-8">
-                                <li class="flex items-center gap-2 text-xs font-medium text-primary">
-                                    <span class="material-symbols-outlined text-secondary text-sm">check_circle</span> Statutory Audit Compliance
-                                </li>
-                                <li class="flex items-center gap-2 text-xs font-medium text-primary">
-                                    <span class="material-symbols-outlined text-secondary text-sm">check_circle</span> Internal Risk Assessments
-                                </li>
-                            </ul>
                         </div>
-                        <a class="inline-flex items-center text-secondary font-bold text-sm gap-2 group-hover:gap-4 transition-all" href="https://wa.me/918669291713?text=Hi%20Pravin%20Belokar%20%26%20Associates%2C%20I%20want%20help%20with%20Audit%20%26%20Assurance">
-                            Enquire on WhatsApp <span class="material-symbols-outlined">arrow_right_alt</span>
-                        </a>
+                        <div class="px-8 pb-8">
+                            <a class="inline-flex items-center text-secondary font-bold text-sm gap-2 group-hover:gap-4 transition-all" href="https://wa.me/918669291713?text=Hi%20Pravin%20Belokar%20%26%20Associates%2C%20I%20want%20help%20with%20Audit%20%26%20Assurance">
+                                Enquire on WhatsApp <span class="material-symbols-outlined">arrow_right_alt</span>
+                            </a>
+                        </div>
                     </div>
 
                     <!-- Service Card 4 -->
-                    <div class="bg-surface-container-low p-8 rounded-xl flex flex-col justify-between hover:bg-surface-container-high transition-all duration-300 group editorial-shadow">
+                    <div class="bg-surface-container-low rounded-xl flex flex-col justify-between hover:bg-surface-container-high transition-all duration-300 group editorial-shadow overflow-hidden">
                         <div>
-                            <div class="w-12 h-12 bg-primary-container text-on-primary-container rounded-lg flex items-center justify-center mb-6">
-                                <span class="material-symbols-outlined">insights</span>
+                            <img src="./financialadvisory.jpeg" alt="Financial Advisory" class="service-card-img"/>
+                            <div class="p-8">
+                                <h3 class="font-headline text-2xl mb-3 text-primary">Financial Advisory</h3>
+                                <p class="text-on-surface-variant text-sm mb-6">Custom growth strategies and investment planning to secure your corporate future.</p>
+                                <ul class="space-y-2 mb-8">
+                                    <li class="flex items-center gap-2 text-xs font-medium text-primary">
+                                        <span class="material-symbols-outlined text-secondary text-sm">check_circle</span> Capital Budgeting
+                                    </li>
+                                    <li class="flex items-center gap-2 text-xs font-medium text-primary">
+                                        <span class="material-symbols-outlined text-secondary text-sm">check_circle</span> Wealth Management
+                                    </li>
+                                </ul>
                             </div>
-                            <h3 class="font-headline text-2xl mb-3 text-primary">Financial Advisory</h3>
-                            <p class="text-on-surface-variant text-sm mb-6">Custom growth strategies and investment planning to secure your corporate future.</p>
-                            <ul class="space-y-2 mb-8">
-                                <li class="flex items-center gap-2 text-xs font-medium text-primary">
-                                    <span class="material-symbols-outlined text-secondary text-sm">check_circle</span> Capital Budgeting
-                                </li>
-                                <li class="flex items-center gap-2 text-xs font-medium text-primary">
-                                    <span class="material-symbols-outlined text-secondary text-sm">check_circle</span> Wealth Management
-                                </li>
-                            </ul>
                         </div>
-                        <a class="inline-flex items-center text-secondary font-bold text-sm gap-2 group-hover:gap-4 transition-all" href="https://wa.me/918669291713?text=Hi%20Pravin%20Belokar%20%26%20Associates%2C%20I%20want%20help%20with%20Financial%20Advisory">
-                            Enquire on WhatsApp <span class="material-symbols-outlined">arrow_right_alt</span>
-                        </a>
+                        <div class="px-8 pb-8">
+                            <a class="inline-flex items-center text-secondary font-bold text-sm gap-2 group-hover:gap-4 transition-all" href="https://wa.me/918669291713?text=Hi%20Pravin%20Belokar%20%26%20Associates%2C%20I%20want%20help%20with%20Financial%20Advisory">
+                                Enquire on WhatsApp <span class="material-symbols-outlined">arrow_right_alt</span>
+                            </a>
+                        </div>
                     </div>
 
                     <!-- Service Card 5 -->
-                    <div class="bg-surface-container-low p-8 rounded-xl flex flex-col justify-between hover:bg-surface-container-high transition-all duration-300 group editorial-shadow">
+                    <div class="bg-surface-container-low rounded-xl flex flex-col justify-between hover:bg-surface-container-high transition-all duration-300 group editorial-shadow overflow-hidden">
                         <div>
-                            <div class="w-12 h-12 bg-primary text-on-primary rounded-lg flex items-center justify-center mb-6">
-                                <span class="material-symbols-outlined">how_to_reg</span>
+                            <img src="./companyregistration.jpg" alt="Business Registration" class="service-card-img"/>
+                            <div class="p-8">
+                                <h3 class="font-headline text-2xl mb-3 text-primary">Business Registration</h3>
+                                <p class="text-on-surface-variant text-sm mb-6">Expert guidance for LLC, Partnership, and Private Limited company formations.</p>
+                                <ul class="space-y-2 mb-8">
+                                    <li class="flex items-center gap-2 text-xs font-medium text-primary">
+                                        <span class="material-symbols-outlined text-secondary text-sm">check_circle</span> Fast-track ROC Filing
+                                    </li>
+                                    <li class="flex items-center gap-2 text-xs font-medium text-primary">
+                                        <span class="material-symbols-outlined text-secondary text-sm">check_circle</span> MSME & Startup India Reg
+                                    </li>
+                                </ul>
                             </div>
-                            <h3 class="font-headline text-2xl mb-3 text-primary">Business Registration</h3>
-                            <p class="text-on-surface-variant text-sm mb-6">Expert guidance for LLC, Partnership, and Private Limited company formations.</p>
-                            <ul class="space-y-2 mb-8">
-                                <li class="flex items-center gap-2 text-xs font-medium text-primary">
-                                    <span class="material-symbols-outlined text-secondary text-sm">check_circle</span> Fast-track ROC Filing
-                                </li>
-                                <li class="flex items-center gap-2 text-xs font-medium text-primary">
-                                    <span class="material-symbols-outlined text-secondary text-sm">check_circle</span> MSME & Startup India Reg
-                                </li>
-                            </ul>
                         </div>
-                        <a class="inline-flex items-center text-secondary font-bold text-sm gap-2 group-hover:gap-4 transition-all" href="https://wa.me/918669291713?text=Hi%20Pravin%20Belokar%20%26%20Associates%2C%20I%20want%20help%20with%20Business%20Registration">
-                            Enquire on WhatsApp <span class="material-symbols-outlined">arrow_right_alt</span>
-                        </a>
+                        <div class="px-8 pb-8">
+                            <a class="inline-flex items-center text-secondary font-bold text-sm gap-2 group-hover:gap-4 transition-all" href="https://wa.me/918669291713?text=Hi%20Pravin%20Belokar%20%26%20Associates%2C%20I%20want%20help%20with%20Business%20Registration">
+                                Enquire on WhatsApp <span class="material-symbols-outlined">arrow_right_alt</span>
+                            </a>
+                        </div>
                     </div>
 
                     <!-- Service Card 6 -->
-                    <div class="bg-surface-container-low p-8 rounded-xl flex flex-col justify-between hover:bg-surface-container-high transition-all duration-300 group editorial-shadow">
+                    <div class="bg-surface-container-low rounded-xl flex flex-col justify-between hover:bg-surface-container-high transition-all duration-300 group editorial-shadow overflow-hidden">
                         <div>
-                            <div class="w-12 h-12 bg-secondary text-on-secondary rounded-lg flex items-center justify-center mb-6">
-                                <span class="material-symbols-outlined">gavel</span>
+                            <img src="./corporate_law_services.jpeg" alt="Corporate Law Services" class="service-card-img"/>
+                            <div class="p-8">
+                                <h3 class="font-headline text-2xl mb-3 text-primary">Corporate Law Services</h3>
+                                <p class="text-on-surface-variant text-sm mb-6">Specialized legal compliance for the Companies Act and regulatory frameworks.</p>
+                                <ul class="space-y-2 mb-8">
+                                    <li class="flex items-center gap-2 text-xs font-medium text-primary">
+                                        <span class="material-symbols-outlined text-secondary text-sm">check_circle</span> Secretarial Audits
+                                    </li>
+                                    <li class="flex items-center gap-2 text-xs font-medium text-primary">
+                                        <span class="material-symbols-outlined text-secondary text-sm">check_circle</span> Corporate Restructuring
+                                    </li>
+                                </ul>
                             </div>
-                            <h3 class="font-headline text-2xl mb-3 text-primary">Corporate Law Services</h3>
-                            <p class="text-on-surface-variant text-sm mb-6">Specialized legal compliance for the Companies Act and regulatory frameworks.</p>
-                            <ul class="space-y-2 mb-8">
-                                <li class="flex items-center gap-2 text-xs font-medium text-primary">
-                                    <span class="material-symbols-outlined text-secondary text-sm">check_circle</span> Secretarial Audits
-                                </li>
-                                <li class="flex items-center gap-2 text-xs font-medium text-primary">
-                                    <span class="material-symbols-outlined text-secondary text-sm">check_circle</span> Corporate Restructuring
-                                </li>
-                            </ul>
                         </div>
-                        <a class="inline-flex items-center text-secondary font-bold text-sm gap-2 group-hover:gap-4 transition-all" href="https://wa.me/918669291713?text=Hi%20Pravin%20Belokar%20%26%20Associates%2C%20I%20want%20help%20with%20Corporate%20Law%20Services">
-                            Enquire on WhatsApp <span class="material-symbols-outlined">arrow_right_alt</span>
-                        </a>
+                        <div class="px-8 pb-8">
+                            <a class="inline-flex items-center text-secondary font-bold text-sm gap-2 group-hover:gap-4 transition-all" href="https://wa.me/918669291713?text=Hi%20Pravin%20Belokar%20%26%20Associates%2C%20I%20want%20help%20with%20Corporate%20Law%20Services">
+                                Enquire on WhatsApp <span class="material-symbols-outlined">arrow_right_alt</span>
+                            </a>
+                        </div>
                     </div>
 
                     <!-- Service Card 7 -->
-                    <div class="bg-surface-container-low p-8 rounded-xl flex flex-col justify-between hover:bg-surface-container-high transition-all duration-300 group editorial-shadow">
+                    <div class="bg-surface-container-low rounded-xl flex flex-col justify-between hover:bg-surface-container-high transition-all duration-300 group editorial-shadow overflow-hidden">
                         <div>
-                            <div class="w-12 h-12 bg-primary text-on-primary rounded-lg flex items-center justify-center mb-6">
-                                <span class="material-symbols-outlined">psychology</span>
+                            <img src="./management_consulting.webp" alt="Management Consulting" class="service-card-img"/>
+                            <div class="p-8">
+                                <h3 class="font-headline text-2xl mb-3 text-primary">Management Consulting</h3>
+                                <p class="text-on-surface-variant text-sm mb-6">Strategic business transformation and operational excellence consulting.</p>
+                                <ul class="space-y-2 mb-8">
+                                    <li class="flex items-center gap-2 text-xs font-medium text-primary">
+                                        <span class="material-symbols-outlined text-secondary text-sm">check_circle</span> Business Process Optimization
+                                    </li>
+                                    <li class="flex items-center gap-2 text-xs font-medium text-primary">
+                                        <span class="material-symbols-outlined text-secondary text-sm">check_circle</span> Strategic Planning
+                                    </li>
+                                </ul>
                             </div>
-                            <h3 class="font-headline text-2xl mb-3 text-primary">Management Consulting</h3>
-                            <p class="text-on-surface-variant text-sm mb-6">Strategic business transformation and operational excellence consulting.</p>
-                            <ul class="space-y-2 mb-8">
-                                <li class="flex items-center gap-2 text-xs font-medium text-primary">
-                                    <span class="material-symbols-outlined text-secondary text-sm">check_circle</span> Business Process Optimization
-                                </li>
-                                <li class="flex items-center gap-2 text-xs font-medium text-primary">
-                                    <span class="material-symbols-outlined text-secondary text-sm">check_circle</span> Strategic Planning
-                                </li>
-                            </ul>
                         </div>
-                        <a class="inline-flex items-center text-secondary font-bold text-sm gap-2 group-hover:gap-4 transition-all" href="https://wa.me/918669291713?text=Hi%20Pravin%20Belokar%20%26%20Associates%2C%20I%20want%20help%20with%20Management%20Consulting">
-                            Enquire on WhatsApp <span class="material-symbols-outlined">arrow_right_alt</span>
-                        </a>
+                        <div class="px-8 pb-8">
+                            <a class="inline-flex items-center text-secondary font-bold text-sm gap-2 group-hover:gap-4 transition-all" href="https://wa.me/918669291713?text=Hi%20Pravin%20Belokar%20%26%20Associates%2C%20I%20want%20help%20with%20Management%20Consulting">
+                                Enquire on WhatsApp <span class="material-symbols-outlined">arrow_right_alt</span>
+                            </a>
+                        </div>
                     </div>
 
                     <!-- Service Card 8 -->
-                    <div class="bg-surface-container-low p-8 rounded-xl flex flex-col justify-between hover:bg-surface-container-high transition-all duration-300 group editorial-shadow">
+                    <div class="bg-surface-container-low rounded-xl flex flex-col justify-between hover:bg-surface-container-high transition-all duration-300 group editorial-shadow overflow-hidden">
                         <div>
-                            <div class="w-12 h-12 bg-secondary text-on-secondary rounded-lg flex items-center justify-center mb-6">
-                                <span class="material-symbols-outlined">payments</span>
+                            <img src="./loan&funding.jpeg" alt="Loan & Funding Assistance" class="service-card-img"/>
+                            <div class="p-8">
+                                <h3 class="font-headline text-2xl mb-3 text-primary">Loan & Funding Assistance</h3>
+                                <p class="text-on-surface-variant text-sm mb-6">Navigate financial institutions and secure optimal funding for your business.</p>
+                                <ul class="space-y-2 mb-8">
+                                    <li class="flex items-center gap-2 text-xs font-medium text-primary">
+                                        <span class="material-symbols-outlined text-secondary text-sm">check_circle</span> Business Loan Advisory
+                                    </li>
+                                    <li class="flex items-center gap-2 text-xs font-medium text-primary">
+                                        <span class="material-symbols-outlined text-secondary text-sm">check_circle</span> Project Financing
+                                    </li>
+                                </ul>
                             </div>
-                            <h3 class="font-headline text-2xl mb-3 text-primary">Loan & Funding Assistance</h3>
-                            <p class="text-on-surface-variant text-sm mb-6">Navigate financial institutions and secure optimal funding for your business.</p>
-                            <ul class="space-y-2 mb-8">
-                                <li class="flex items-center gap-2 text-xs font-medium text-primary">
-                                    <span class="material-symbols-outlined text-secondary text-sm">check_circle</span> Business Loan Advisory
-                                </li>
-                                <li class="flex items-center gap-2 text-xs font-medium text-primary">
-                                    <span class="material-symbols-outlined text-secondary text-sm">check_circle</span> Project Financing
-                                </li>
-                            </ul>
                         </div>
-                        <a class="inline-flex items-center text-secondary font-bold text-sm gap-2 group-hover:gap-4 transition-all" href="https://wa.me/918669291713?text=Hi%20Pravin%20Belokar%20%26%20Associates%2C%20I%20want%20help%20with%20Loan%20%26%20Funding%20Assistance">
-                            Enquire on WhatsApp <span class="material-symbols-outlined">arrow_right_alt</span>
-                        </a>
+                        <div class="px-8 pb-8">
+                            <a class="inline-flex items-center text-secondary font-bold text-sm gap-2 group-hover:gap-4 transition-all" href="https://wa.me/918669291713?text=Hi%20Pravin%20Belokar%20%26%20Associates%2C%20I%20want%20help%20with%20Loan%20%26%20Funding%20Assistance">
+                                Enquire on WhatsApp <span class="material-symbols-outlined">arrow_right_alt</span>
+                            </a>
+                        </div>
                     </div>
 
                     <!-- Service Card 9 -->
-                    <div class="bg-surface-container-low p-8 rounded-xl flex flex-col justify-between hover:bg-surface-container-high transition-all duration-300 group editorial-shadow">
+                    <div class="bg-surface-container-low rounded-xl flex flex-col justify-between hover:bg-surface-container-high transition-all duration-300 group editorial-shadow overflow-hidden">
                         <div>
-                            <div class="w-12 h-12 bg-primary text-on-primary rounded-lg flex items-center justify-center mb-6">
-                                <span class="material-symbols-outlined">verified</span>
+                            <img src="./certificationserviceimages.jpg" alt="Certification Services" class="service-card-img"/>
+                            <div class="p-8">
+                                <h3 class="font-headline text-2xl mb-3 text-primary">Certification Services</h3>
+                                <p class="text-on-surface-variant text-sm mb-6">Professional certifications and attestations for various statutory requirements.</p>
+                                <ul class="space-y-2 mb-8">
+                                    <li class="flex items-center gap-2 text-xs font-medium text-primary">
+                                        <span class="material-symbols-outlined text-secondary text-sm">check_circle</span> Net Worth Certificates
+                                    </li>
+                                    <li class="flex items-center gap-2 text-xs font-medium text-primary">
+                                        <span class="material-symbols-outlined text-secondary text-sm">check_circle</span> Turnover Certificates
+                                    </li>
+                                </ul>
                             </div>
-                            <h3 class="font-headline text-2xl mb-3 text-primary">Certification Services</h3>
-                            <p class="text-on-surface-variant text-sm mb-6">Professional certifications and attestations for various statutory requirements.</p>
-                            <ul class="space-y-2 mb-8">
-                                <li class="flex items-center gap-2 text-xs font-medium text-primary">
-                                    <span class="material-symbols-outlined text-secondary text-sm">check_circle</span> Net Worth Certificates
-                                </li>
-                                <li class="flex items-center gap-2 text-xs font-medium text-primary">
-                                    <span class="material-symbols-outlined text-secondary text-sm">check_circle</span> Turnover Certificates
-                                </li>
-                            </ul>
                         </div>
-                        <a class="inline-flex items-center text-secondary font-bold text-sm gap-2 group-hover:gap-4 transition-all" href="https://wa.me/918669291713?text=Hi%20Pravin%20Belokar%20%26%20Associates%2C%20I%20want%20help%20with%20Certification%20Services">
-                            Enquire on WhatsApp <span class="material-symbols-outlined">arrow_right_alt</span>
-                        </a>
+                        <div class="px-8 pb-8">
+                            <a class="inline-flex items-center text-secondary font-bold text-sm gap-2 group-hover:gap-4 transition-all" href="https://wa.me/918669291713?text=Hi%20Pravin%20Belokar%20%26%20Associates%2C%20I%20want%20help%20with%20Certification%20Services">
+                                Enquire on WhatsApp <span class="material-symbols-outlined">arrow_right_alt</span>
+                            </a>
+                        </div>
                     </div>
 
                     <!-- Service Card 10 -->
-                    <div class="bg-surface-container-low p-8 rounded-xl flex flex-col justify-between hover:bg-surface-container-high transition-all duration-300 group editorial-shadow">
+                    <div class="bg-surface-container-low rounded-xl flex flex-col justify-between hover:bg-surface-container-high transition-all duration-300 group editorial-shadow overflow-hidden">
                         <div>
-                            <div class="w-12 h-12 bg-secondary text-on-secondary rounded-lg flex items-center justify-center mb-6">
-                                <span class="material-symbols-outlined">public</span>
+                            <img src="./international_taxation.jpg" alt="International Taxation" class="service-card-img"/>
+                            <div class="p-8">
+                                <h3 class="font-headline text-2xl mb-3 text-primary">International Taxation</h3>
+                                <p class="text-on-surface-variant text-sm mb-6">Cross-border tax planning and compliance for global business operations.</p>
+                                <ul class="space-y-2 mb-8">
+                                    <li class="flex items-center gap-2 text-xs font-medium text-primary">
+                                        <span class="material-symbols-outlined text-secondary text-sm">check_circle</span> Transfer Pricing
+                                    </li>
+                                    <li class="flex items-center gap-2 text-xs font-medium text-primary">
+                                        <span class="material-symbols-outlined text-secondary text-sm">check_circle</span> NRI Tax Services
+                                    </li>
+                                </ul>
                             </div>
-                            <h3 class="font-headline text-2xl mb-3 text-primary">International Taxation</h3>
-                            <p class="text-on-surface-variant text-sm mb-6">Cross-border tax planning and compliance for global business operations.</p>
-                            <ul class="space-y-2 mb-8">
-                                <li class="flex items-center gap-2 text-xs font-medium text-primary">
-                                    <span class="material-symbols-outlined text-secondary text-sm">check_circle</span> Transfer Pricing
-                                </li>
-                                <li class="flex items-center gap-2 text-xs font-medium text-primary">
-                                    <span class="material-symbols-outlined text-secondary text-sm">check_circle</span> NRI Tax Services
-                                </li>
-                            </ul>
                         </div>
-                        <a class="inline-flex items-center text-secondary font-bold text-sm gap-2 group-hover:gap-4 transition-all" href="https://wa.me/918669291713?text=Hi%20Pravin%20Belokar%20%26%20Associates%2C%20I%20want%20help%20with%20International%20Taxation">
-                            Enquire on WhatsApp <span class="material-symbols-outlined">arrow_right_alt</span>
-                        </a>
+                        <div class="px-8 pb-8">
+                            <a class="inline-flex items-center text-secondary font-bold text-sm gap-2 group-hover:gap-4 transition-all" href="https://wa.me/918669291713?text=Hi%20Pravin%20Belokar%20%26%20Associates%2C%20I%20want%20help%20with%20International%20Taxation">
+                                Enquire on WhatsApp <span class="material-symbols-outlined">arrow_right_alt</span>
+                            </a>
+                        </div>
                     </div>
+
                 </div>
             </div>
         </section>
@@ -479,7 +522,7 @@
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
                     <div class="relative">
                         <div class="absolute -top-12 -left-12 w-48 h-48 bg-secondary/20 rounded-full blur-2xl"></div>
-                        <img alt="Executive Handshake" class="rounded-2xl relative z-10 editorial-shadow grayscale hover:grayscale-0 transition-all duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBnZUbXgGrrNtglKsO8LcqyuHpsvc23QO5q4TOd87uIY-27ikqKqWrlGX7amTTJzHz5_xN3kjfEGOeG6PyQfzkhA-tuUmbA94IT0-3hfWrK4XEI0HMhbO9Rf8tP3Rt3-4eaim08bgvNRWX-mKUCxDLuklbEyLdiacVakRHgxIjs8knmGO501AvdZsPWyODF1B2S26RSUbs1y7pr7uBZftxxnSwJoveSbAJGg9sB7sf3qJodGEAyl2SlneBhFfF1cnzhwP5GKWc81sJt"/>
+                        <img alt="Pravin Belokar" class="rounded-2xl relative z-10 editorial-shadow hover:grayscale-0 transition-all duration-700" src="./pravin_belokar.png"/>
                     </div>
                     <div class="space-y-8">
                         <h2 class="font-headline text-4xl md:text-5xl leading-tight">Expertise Rooted in <span class="text-secondary-fixed-dim italic">Integrity.</span></h2>
@@ -500,7 +543,6 @@
                             "Our mission is to provide peace of mind through absolute compliance, allowing you to focus on what you do best—growing your business."
                         </p>
                         <div class="flex items-center gap-4">
-                            <img alt="Pravin Belokar" class="w-14 h-14 rounded-full border-2 border-secondary" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA6-KFdSbs_PkpkrG4K5suJCCaawjoTbuuNN0SW1F9JDTmhZjaHfRZh-t9y0Y6LWKhxf2axAlCa-Tmr8GTjbNiQEhvgok445YQdR0BKRIaDALfhm6u5VVXs3KqjQMUVx-Knia3phLlIMYdy-46wp97dryjjQs29L-64weM_SB4yAaxoRO8dw6Q_geuhHCD1IWNKYimoL1f1JLAM7-Y4jBOe9Q4npy3EoGkJH9mG9NY1D9WwGYJXVbFyMnkTPta0bVQ-82L2AJItIV2F"/>
                             <div>
                                 <div class="font-bold">Pravin Belokar</div>
                                 <div class="text-xs text-secondary-fixed-dim">Managing Partner, FCA</div>
@@ -527,7 +569,7 @@
                                 </div>
                                 <div>
                                     <div class="font-bold text-primary">Headquarters</div>
-                                    <div class="text-on-surface-variant text-sm">Villa No. 12, Green City, Opposite Delhi Public School, Lam, Guntur, Andhra Pradesh - 522034</div>
+                                    <div class="text-on-surface-variant text-sm">Beside Jain Mandir, Near Prajakta School, New Khetan Nagar, Kaulkhed, Akola, Maharashtra- 444102</div>
                                 </div>
                             </div>
                             <div class="flex gap-4">
@@ -605,20 +647,34 @@
     <!-- Footer -->
     <footer class="bg-slate-950 dark:bg-black text-slate-100 py-16">
         <div class="max-w-7xl mx-auto px-8 grid grid-cols-1 md:grid-cols-3 gap-12">
-            <div class="col-span-1 space-y-6">
+            <!-- Col 1: Brand -->
+            <div class="space-y-6">
                 <div class="text-lg font-serif font-semibold text-amber-500">Pravin Belokar & Associates</div>
                 <p class="text-slate-400 text-xs leading-relaxed max-w-xs">
                     Elite accounting and financial consultancy services for high-growth enterprises and individuals across India. Founded on trust, sustained by excellence.
                 </p>
                 <div class="flex gap-4">
-                    <a class="w-8 h-8 bg-slate-800 rounded-full flex items-center justify-center hover:bg-amber-500 transition-colors" href="https://www.instagram.com">
-                        <span class="material-symbols-outlined text-sm">camera</span>
+                    <!-- LinkedIn -->
+                    <a class="w-12 h-12 bg-slate-800 rounded-full flex items-center justify-center hover:bg-amber-500 transition-colors"
+                    href="https://www.linkedin.com/in/ca-pravin-belokar" 
+                    target="_blank" rel="noopener noreferrer">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                            <path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.95v5.66H9.36V9h3.41v1.56h.05c.48-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 110-4.12 2.06 2.06 0 010 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/>
+                        </svg>
                     </a>
-                    <a class="w-8 h-8 bg-slate-800 rounded-full flex items-center justify-center hover:bg-amber-500 transition-colors" href="https://www.facebook.com">
-                        <span class="material-symbols-outlined text-sm">thumb_up</span>
+
+                    <!-- Instagram -->
+                    <a class="w-12 h-12 bg-slate-800 rounded-full flex items-center justify-center hover:bg-amber-500 transition-colors"
+                    href="https://instagram.com/dummyprofile"
+                    target="_blank" rel="noopener noreferrer">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                            <path d="M7.75 2h8.5A5.75 5.75 0 0122 7.75v8.5A5.75 5.75 0 0116.25 22h-8.5A5.75 5.75 0 012 16.25v-8.5A5.75 5.75 0 017.75 2zm0 1.5A4.25 4.25 0 003.5 7.75v8.5A4.25 4.25 0 007.75 20.5h8.5a4.25 4.25 0 004.25-4.25v-8.5A4.25 4.25 0 0016.25 3.5h-8.5zm8.88 1.62a1.13 1.13 0 110 2.26 1.13 1.13 0 010-2.26zM12 7a5 5 0 110 10 5 5 0 010-10zm0 1.5A3.5 3.5 0 1015.5 12 3.5 3.5 0 0012 8.5z"/>
+                        </svg>
                     </a>
                 </div>
             </div>
+
+            <!-- Col 2: Expertise -->
             <div>
                 <h4 class="text-amber-500 text-xs font-bold uppercase tracking-widest mb-6">Expertise</h4>
                 <ul class="space-y-4">
@@ -628,29 +684,30 @@
                     <li><a class="text-slate-400 text-xs hover:text-slate-100 hover:translate-x-1 transition-all inline-block" href="#services">Compliance</a></li>
                 </ul>
             </div>
+
+            <!-- Col 3: Quick Links (Government Portals) -->
             <div>
                 <h4 class="text-amber-500 text-xs font-bold uppercase tracking-widest mb-6">Quick Links</h4>
                 <ul class="space-y-4">
-                    <li><a class="text-slate-400 text-xs hover:text-slate-100 hover:translate-x-1 transition-all inline-block" href="#about">Our Story</a></li>
-                    <li><a class="text-slate-400 text-xs hover:text-slate-100 hover:translate-x-1 transition-all inline-block" href="#services">Our Services</a></li>
-                    <li><a class="text-slate-400 text-xs hover:text-slate-100 hover:translate-x-1 transition-all inline-block" href="#contact">Locate Us</a></li>
-                    <li><a class="text-slate-400 text-xs hover:text-slate-100 hover:translate-x-1 transition-all inline-block" href="#">Privacy Policy</a></li>
+                    <li><a class="text-slate-400 text-xs hover:text-slate-100 hover:translate-x-1 transition-all inline-block" href="https://www.incometax.gov.in" target="_blank" rel="noopener noreferrer">Income Tax Dept.</a></li>
+                    <li><a class="text-slate-400 text-xs hover:text-slate-100 hover:translate-x-1 transition-all inline-block" href="https://www.gst.gov.in" target="_blank" rel="noopener noreferrer">Goods and Service Tax (GST)</a></li>
+                    <li><a class="text-slate-400 text-xs hover:text-slate-100 hover:translate-x-1 transition-all inline-block" href="https://www.mahagst.gov.in" target="_blank" rel="noopener noreferrer">Maha GST</a></li>
+                    <li><a class="text-slate-400 text-xs hover:text-slate-100 hover:translate-x-1 transition-all inline-block" href="https://www.cbic.gov.in" target="_blank" rel="noopener noreferrer">Central Board of Excise & Customs</a></li>
+                    <li><a class="text-slate-400 text-xs hover:text-slate-100 hover:translate-x-1 transition-all inline-block" href="https://www.mca.gov.in" target="_blank" rel="noopener noreferrer">Ministry of Company Affairs</a></li>
+                    <li><a class="text-slate-400 text-xs hover:text-slate-100 hover:translate-x-1 transition-all inline-block" href="https://www.epfindia.gov.in" target="_blank" rel="noopener noreferrer">Employees Provident Fund</a></li>
                 </ul>
             </div>
         </div>
         <div class="max-w-7xl mx-auto px-8 mt-16 pt-8 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4 text-slate-500 text-xs">
             <div>© 2024 Pravin Belokar & Associates. Chartered Accountants. All rights reserved.</div>
-            
         </div>
     </footer>
 
     <!-- Floating Action Button for WhatsApp -->
-    <!-- Floating Action Button for WhatsApp -->
-    <a id="whatsappFloat" 
-    class="fixed bottom-8 right-8 bg-[#25D366] text-white h-14 min-w-[56px] rounded-2xl shadow-2xl z-50 flex items-center px-4 group opacity-0 translate-y-8 pointer-events-none" 
-    href="https://wa.me/918669291713">
+    <a id="whatsappFloat"
+    class="fixed bottom-8 right-8 bg-[#25D366] text-white h-14 min-w-[56px] rounded-2xl shadow-2xl z-50 flex items-center px-4 group opacity-0 translate-y-8 pointer-events-none"
+    href="https://wa.me/918669291713?text=Hello%2C%20I%20would%20like%20to%20enquire%20about%20your%20services%20at%20Pravin%20Belokar%20%26%20Associates.">
         <span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">chat</span>
-        <!-- Text appears only on lg+ with smooth unfold -->
         <span class="max-w-0 overflow-hidden group-hover:max-w-xs group-hover:ml-3 transition-all duration-500 whitespace-nowrap font-bold text-sm hidden lg:inline">Enquire Now</span>
     </a>
 
@@ -687,18 +744,30 @@
 
         mobileBackdrop.addEventListener('click', closeMenuFn);
 
-        // Close menu when clicking on a nav link
         const mobileLinks = mobileMenu.querySelectorAll('a');
         mobileLinks.forEach(link => {
             link.addEventListener('click', closeMenuFn);
         });
 
-        // Prevent touch events on the closed menu from firing
         mobileMenu.addEventListener('touchstart', function(e) {
             if (!mobileMenu.classList.contains('active')) {
                 e.stopPropagation();
             }
         }, { passive: true });
+
+        // Hero Slideshow
+        function initSlideshow(container) {
+            const slides = container.querySelectorAll('.hero-slide');
+            if (!slides.length) return;
+            let current = 0;
+            setInterval(() => {
+                slides[current].classList.remove('active');
+                current = (current + 1) % slides.length;
+                slides[current].classList.add('active');
+            }, 4000);
+        }
+
+        document.querySelectorAll('.hero-slideshow').forEach(initSlideshow);
 
         // WhatsApp Form Submission
         document.getElementById('consultationForm').addEventListener('submit', function(e) {
@@ -735,7 +804,8 @@
                 }
             });
         });
-        // Floating WhatsApp button - appears only after scrolling down
+
+        // Floating WhatsApp button
         const whatsappFloat = document.getElementById('whatsappFloat');
 
         function toggleFloatButton() {
@@ -749,7 +819,6 @@
         }
 
         window.addEventListener('scroll', toggleFloatButton);
-        // Initial check in case page is already scrolled
         toggleFloatButton();
     </script>
 </body>
