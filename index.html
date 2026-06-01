@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Pravin Belokar & Associates | Chartered Accountants</title>
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;0,6..72,700;1,6..72,400&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-fixed-variant": "#2d476f",
+                        "surface": "#f8f9fa",
+                        "surface-container-highest": "#e1e3e4",
+                        "on-tertiary-container": "#4e87e7",
+                        "secondary-container": "#fed488",
+                        "inverse-primary": "#aec7f6",
+                        "inverse-surface": "#2e3132",
+                        "primary": "#003D5C",
+                        "secondary-fixed-dim": "#e9c176",
+                        "on-secondary-fixed-variant": "#5d4201",
+                        "tertiary-fixed-dim": "#acc7ff",
+                        "surface-container-low": "#f3f4f5",
+                        "on-tertiary-fixed-variant": "#004491",
+                        "background": "#f8f9fa",
+                        "surface-container-high": "#e7e8e9",
+                        "tertiary-container": "#00204b",
+                        "tertiary-fixed": "#d7e2ff",
+                        "surface-container": "#edeeef",
+                        "on-secondary-container": "#785a1a",
+                        "inverse-on-surface": "#f0f1f2",
+                        "on-error-container": "#93000a",
+                        "on-secondary": "#ffffff",
+                        "tertiary": "#000a20",
+                        "on-surface": "#191c1d",
+                        "primary-fixed": "#d6e3ff",
+                        "on-error": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-fixed": "#001b3d",
+                        "on-secondary-fixed": "#261900",
+                        "surface-dim": "#d9dadb",
+                        "on-tertiary-fixed": "#001a40",
+                        "error-container": "#ffdad6",
+                        "on-tertiary": "#ffffff",
+                        "secondary": "#775a19",
+                        "on-primary": "#ffffff",
+                        "outline-variant": "#c4c6cf",
+                        "surface-tint": "#465f88",
+                        "outline": "#74777f",
+                        "primary-container": "#002147",
+                        "on-primary-container": "#dadada",
+                        "on-surface-variant": "#44474e",
+                        "primary-fixed-dim": "#aec7f6",
+                        "secondary-fixed": "#ffdea5",
+                        "error": "#ba1a1a",
+                        "surface-bright": "#f8f9fa",
+                        "on-background": "#191c1d",
+                        "surface-variant": "#e1e3e4"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Newsreader", "serif"],
+                        "body": ["Inter", "sans-serif"],
+                        "label": ["Inter", "sans-serif"]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .editorial-shadow {
+            box-shadow: 0 10px 30px -10px rgba(0, 10, 30, 0.08);
+        }
+        .glass-header {
+            background: rgba(248, 249, 250, 0.95);
+            backdrop-filter: blur(24px);
+        }
+
+        /* Mobile Menu Styles */
+        .mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.3s ease-in-out;
+            pointer-events: none;
+            touch-action: none;
+            background-color: #ffffff !important;
+            box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+            z-index: 60;
+        }
+
+        .mobile-menu.active ~ #whatsappFloat {
+            display: none !important;
+        }
+
+        .mobile-menu.active {
+            transform: translateX(0);
+            pointer-events: auto;
+            touch-action: auto;
+        }
+
+        /* Backdrop */
+        .mobile-backdrop {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 40;
+        }
+        .mobile-backdrop.active {
+            display: block;
+        }
+
+        /* Hamburger Animation */
+        .hamburger-line {
+            transition: all 0.3s ease-in-out;
+        }
+        .hamburger.active .hamburger-line:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        .hamburger.active .hamburger-line:nth-child(2) {
+            opacity: 0;
+        }
+        .hamburger.active .hamburger-line:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+
+        /* Hero Slideshow */
+        .hero-slide {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            transition: opacity 1.2s ease-in-out;
+            background-size: cover;
+            background-position: center;
+        }
+        .hero-slide.active {
+            opacity: 1;
+        }
+
+        /* Service card image */
+        .service-card-img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 0.5rem 0.5rem 0 0;
+            display: block;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body">
+    <!-- Header / TopNavBar -->
+    <header class="sticky top-0 w-full z-50 glass-header shadow-sm">
+        <nav class="flex justify-between items-center w-full pl-5 pr-4 md:px-6 lg:px-6 py-4 max-w-7xl mx-auto">
+            <div class="flex items-center gap-0">
+            <img src="./CAIndiaLogo.png" alt="CA India Logo" class="h-7 md:h-8 w-auto mr-3 mt-1 inline-block"/>
+            <div class="text-[18px] md:text-[24px] font-bold font-serif text-slate-950 tracking-tight">
+                Pravin Belokar & Associates
+            </div>
+            </div>
+
+            <!-- Desktop Nav -->
+            <div class="hidden lg:flex items-center space-gap-8 gap-8">
+                <a class="text-sm font-medium text-slate-600 hover:text-amber-700 transition-colors" href="#services">Services</a>
+                <a class="text-sm font-medium text-slate-600 hover:text-amber-700 transition-colors" href="#about">About Us</a>
+                <a class="text-sm font-medium text-slate-600 hover:text-amber-700 transition-colors" href="#contact">Contact</a>
+            </div>
+
+            <div class="hidden lg:flex items-center gap-4">
+                <a class="flex items-center gap-2 bg-primary text-on-primary px-5 py-2.5 rounded-full text-sm font-semibold hover:bg-primary-container transition-all active:scale-95" href="https://wa.me/918669291713?text=Hello%2C%20I%20would%20like%20to%20consult%20with%20Pravin%20Belokar%20%26%20Associates%20regarding%20financial%20services.">
+                    WhatsApp Consultation
+                </a>
+            </div>
+
+            <!-- Mobile Hamburger -->
+            <button id="hamburger" class="lg:hidden hamburger flex flex-col gap-1.5 p-2" type="button" aria-label="Open menu">
+                <span class="hamburger-line w-6 h-0.5 bg-slate-950 block"></span>
+                <span class="hamburger-line w-6 h-0.5 bg-slate-950 block"></span>
+                <span class="hamburger-line w-6 h-0.5 bg-slate-950 block"></span>
+            </button>
+        </nav>
+    </header>
+
+    <!-- Backdrop -->
+    <div id="mobileBackdrop" class="mobile-backdrop lg:hidden"></div>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="mobile-menu lg:hidden fixed top-0 right-0 h-full w-64 bg-white shadow-2xl z-50" style="background-color: #ffffff !important;">
+        <div class="flex flex-col h-full">
+            <div class="flex justify-between items-center p-6 border-b border-surface-container-high">
+                <div class="text-2xl font-bold font-serif text-primary">Menu</div>
+                <button id="closeMenu" type="button" aria-label="Close menu" class="text-slate-600">
+                    <span class="material-symbols-outlined text-3xl">close</span>
+                </button>
+            </div>
+            <div class="flex flex-col gap-6 mt-6 px-6">
+                <a class="text-base font-medium text-slate-600 hover:text-amber-700 transition-colors" href="#services">Services</a>
+                <a class="text-base font-medium text-slate-600 hover:text-amber-700 transition-colors" href="#about">About Us</a>
+                <a class="text-base font-medium text-slate-600 hover:text-amber-700 transition-colors" href="#contact">Contact</a>
+                <a class="flex items-center justify-center gap-2 bg-primary text-on-primary px-8 py-3 rounded-[8px] text-sm font-semibold hover:bg-primary-container transition-all active:scale-95" href="https://wa.me/918669291713?text=Hello%2C%20I%20would%20like%20to%20consult%20with%20Pravin%20Belokar%20%26%20Associates%20regarding%20financial%20services.">
+                    Whatsapp
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <main>
+        <!-- Hero Section with Auto-Sliding Background -->
+        <section class="relative bg-primary min-h-[680px] lg:min-h-[540px] flex items-center overflow-hidden">
+
+            <!-- Desktop Slideshow (lg+) — landscape images -->
+            <div class="hero-slideshow hidden lg:block absolute inset-0 z-0">
+                <div class="hero-slide active" style="background-image: url('https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=1600&q=80&fit=crop');"></div>
+                <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=1600&q=80&fit=crop');"></div>
+                <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=1600&q=80&fit=crop');"></div>
+                <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1521791136064-7986c2920216?w=1600&q=80&fit=crop');"></div>
+                <div class="absolute inset-0 bg-gradient-to-r from-primary via-primary/85 to-primary/60"></div>
+            </div>
+
+            <!-- Mobile/Tablet Slideshow (sm + md) — portrait/vertical images -->
+            <div class="hero-slideshow lg:hidden absolute inset-0 z-0">
+                <div class="hero-slide active" style="background-image: url('https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=800&q=80&fit=crop&crop=top');"></div>
+                <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1664575197229-3bbebc281874?w=800&q=80&fit=crop&crop=top');"></div>
+                <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1568992687947-868a62a9f521?w=800&q=80&fit=crop&crop=top');"></div>
+                <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=800&q=80&fit=crop&crop=top');"></div>
+                <div class="absolute inset-0 bg-gradient-to-b from-primary/90 via-primary/80 to-primary/70"></div>
+            </div>
+
+            <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-10 grid grid-cols-1 gap-12 items-center">
+                <div class="space-y-6 md:space-y-8">
+                    <div class="inline-flex items-center gap-2 bg-secondary-container/10 border border-secondary-container/20 px-3 py-1.5 rounded-full">
+                        <span class="material-symbols-outlined text-secondary-fixed-dim text-lg" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+                        <span class="text-secondary-fixed-dim text-xs font-bold tracking-widest uppercase">Trusted Financial Advisory</span>
+                    </div>
+                    <h1 class="font-headline text-[37px] md:text-7xl text-on-primary leading-tight">
+                        Where Numbers Meet <span class="italic text-secondary-fixed-dim">Strategy,</span> & Trust Becomes Your Asset.
+                    </h1>
+                    <p class="text-on-primary-container text-[18px] md:text-xl max-w-3xl leading-relaxed">
+                        At Pravin Belokar & Associates, we go beyond compliance. From rigorous audits and strategic tax planning to end-to-end financial advisory — we deliver the clarity and confidence that lets Indian businesses grow boldly and securely.                     
+                    </p>
+                    <div class="flex flex-wrap gap-4 pt-4">
+                        <a class="bg-secondary text-on-secondary px-8 py-4 rounded-full font-bold flex items-center gap-3 hover:bg-secondary/90 transition-all shadow-xl shadow-secondary/20" href="https://wa.me/918669291713?text=I%20would%20like%20to%20consult%20with%20Pravin%20Belokar%20regarding%20financial%20services">
+                            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">chat</span>
+                            Consult on WhatsApp
+                        </a>
+                        <a class="border border-outline-variant/30 text-on-primary px-8 py-4 rounded-full font-bold hover:bg-white/5 transition-all" href="#services">
+                            Explore Services
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section class="py-[60px] px-6 bg-surface" id="services">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center mb-16 space-y-4">
+                    <h2 class="font-headline text-4xl md:text-5xl text-primary">Our Services</h2>
+                    <p class="text-on-surface-variant max-w-2xl mx-auto">Comprehensive fiscal solutions designed to empower businesses across the Indian subcontinent.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+                    <!-- Service Card 1 -->
+                    <div class="bg-surface-container-low rounded-xl flex flex-col justify-between hover:bg-surface-container-high transition-all duration-300 group editorial-shadow overflow-hidden">
+                        <div>
+                            <img src="./accounting&bookkeeping.jpg" alt="Accounting & Bookkeeping" class="service-card-img"/>
+                            <div class="p-8">
+                                <h3 class="font-headline text-2xl mb-3 text-primary">Accounting & Bookkeeping</h3>
+                                <p class="text-on-surface-variant text-sm">Organised, accurate books that give you a real-time view of your business finances, so you're always audit-ready and decision-ready.</p>
+                                <ul class="space-y-2 mt-4 mb-4">
+                                    <li class="flex items-center gap-2 text-xs font-medium text-primary">
+                                        <span class="material-symbols-outlined text-secondary text-sm">check_circle</span> Real-time Cash Flow Tracking & Bank Reconciliation
+                                    </li>
+                                    <li class="flex items-center gap-2 text-xs font-medium text-primary">
+                                        <span class="material-symbols-outlined text-secondary text-sm">check_circle</span> Digital Ledger Maintenance & Payroll Management
+                                    </li>
+                                    <li class="flex items-center gap-2 text-xs font-medium text-primary">
+                                        <span class="material-symbols-outlined text-secondary text-sm">check_circle</span> Monthly P&L Statement & Financial Report Preparation 
+                                    </li>
+                                    <li class="flex items-center gap-2 text-xs font-medium text-primary">
+                                        <span class="material-symbols-outlined text-secondary text-sm">check_circle</span> Stock & Fixed Asset Verification 
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="px-8 pb-8">
+                            <a class="inline-flex items-center text-secondary font-bold text-sm gap-2 group-hover:gap-4 transition-all" href="https://wa.me/918669291713?text=Hi%20Pravin%20Belokar%20%26%20Associates%2C%20I%20want%20help%20with%20Accounting%20%26%20Bookkeeping">
+                                Enquire on WhatsApp <span class="material-symbols-outlined">arrow_right_alt</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Service Card 2 -->
+                    <div class="bg-surface-container-low rounded-xl flex flex-col justify-between hover:bg-surface-container-high transition-all duration-300 group editorial-shadow overflow-hidden">
+                        <div>
+                            <img src="./tax_services.jpg" alt="Direct Tax Services" class="service-card-img"/>
+                            <div class="p-8">
+                                <h3 class="font-headline text-2xl mb-3 text-primary">Direct Tax Services</h3>
+                                <p class="text-on-surface-variant text-sm">Smart tax planning and timely filing across Income Tax and related compliances — minimising your liability while keeping you fully compliant.</p>
+                                <ul class="space-y-2 mt-4 mb-4">
+                                    <li class="flex items-center gap-2 text-xs font-medium text-primary">
+                                        <span class="material-symbols-outlined text-secondary text-sm">check_circle</span> Income Tax Return Filing for Individuals & Corporates
+                                    </li>
+                                    <li class="flex items-center gap-2 text-xs font-medium text-primary">
+                                        <span class="material-symbols-outlined text-secondary text-sm">check_circle</span> Tax Planning & Advance Tax Calculation
+                                    </li>
+                                    <li class="flex items-center gap-2 text-xs font-medium text-primary">
+                                        <span class="material-symbols-outlined text-secondary text-sm">check_circle</span> TDS/TCS Computation, Filing & Advisory
+                                    </li>
+                                    <li class="flex items-center gap-2 text-xs font-medium text-primary">
+                                        <span class="material-symbols-outlined text-secondary text-sm">check_circle</span> Tax Audit under Section 44AB
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="px-8 pb-8">
+                            <a class="inline-flex items-center text-secondary font-bold text-sm gap-2 group-hover:gap-4 transition-all" href="https://wa.me/918669291713?text=Hi%20Pravin%20Belokar%20%26%20Associates%2C%20I%20want%20help%20with%20Taxation%20Services">
+                                Enquire on WhatsApp <span class="material-symbols-outlined">arrow_right_alt</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Service Card 3 -->
+                    <div class="bg-surface-container-low rounded-xl flex flex-col justify-between hover:bg-surface-container-high transition-all duration-300 group editorial-shadow overflow-hidden">
+                        <div>
+                            <img src="./GST.webp" alt="Indirect Tax Services" class="service-card-img"/>
+                            <div class="p-8">
+                                <h3 class="font-headline text-2xl mb-3 text-primary">Indirect Tax Services </h3>
+                                <p class="text-on-surface-variant text-sm">End-to-end GST management that keeps your business compliant, your credits optimised, and your filings always on time.</p>
+                                <ul class="space-y-2 mt-4 mb-4">
+                                    <li class="flex items-center gap-2 text-xs font-medium text-primary">
+                                        <span class="material-symbols-outlined text-secondary text-sm">check_circle</span> GST Registration & Return Filing
+                                    </li>
+                                    <li class="flex items-center gap-2 text-xs font-medium text-primary">
+                                        <span class="material-symbols-outlined text-secondary text-sm">check_circle</span> GST Compliance Management & Reconciliation
+                                    </li>
+                                    <li class="flex items-center gap-2 text-xs font-medium text-primary">
+                                        <span class="material-symbols-outlined text-secondary text-sm">check_circle</span> Input Tax Credit (ITC) Review & Optimisation
+                                    </li>
+                                    <li class="flex items-center gap-2 text-xs font-medium text-primary">
+                                        <span class="material-symbols-outlined text-secondary text-sm">check_circle</span> GST Notice Handling & Departmental Representation
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="px-8 pb-8">
+                            <a class="inline-flex items-center text-secondary font-bold text-sm gap-2 group-hover:gap-4 transition-all" href="https://wa.me/918669291713?text=Hi%20Pravin%20Belokar%20%26%20Associates%2C%20I%20want%20help%20with%20Taxation%20Services">
+                                Enquire on WhatsApp <span class="material-symbols-outlined">arrow_right_alt</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Service Card 4 -->
+                    <div class="bg-surface-container-low rounded-xl flex flex-col justify-between hover:bg-surface-container-high transition-all duration-300 group editorial-shadow overflow-hidden">
+                        <div>
+                            <img src="./audit&assurance.jpg" alt="Audit & Assurance" class="service-card-img"/>
+                            <div class="p-8">
+                                <h3 class="font-headline text-2xl mb-3 text-primary">Audit & Assurance</h3>
+                                <p class="text-on-surface-variant text-sm"> Thorough, independent audits that strengthen credibility with investors, banks, and regulators — giving every stakeholder confidence in your numbers.</p>
+                                <ul class="space-y-2 mb-4 mt-4">
+                                    <li class="flex items-center gap-2 text-xs font-medium text-primary">
+                                        <span class="material-symbols-outlined text-secondary text-sm">check_circle</span> Statutory Audit Compliance
+                                    </li>
+                                    <li class="flex items-center gap-2 text-xs font-medium text-primary">
+                                        <span class="material-symbols-outlined text-secondary text-sm">check_circle</span> Internal Audit & Risk Assessments
+                                    </li>
+                                    <li class="flex items-center gap-2 text-xs font-medium text-primary">
+                                        <span class="material-symbols-outlined text-secondary text-sm">check_circle</span> Tax Audit & Concurrent Audit
+                                    </li>
+                                    <li class="flex items-center gap-2 text-xs font-medium text-primary">
+                                        <span class="material-symbols-outlined text-secondary text-sm">check_circle</span> Stock & Fixed Asset Verification
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="px-8 pb-8">
+                            <a class="inline-flex items-center text-secondary font-bold text-sm gap-2 group-hover:gap-4 transition-all" href="https://wa.me/918669291713?text=Hi%20Pravin%20Belokar%20%26%20Associates%2C%20I%20want%20help%20with%20Audit%20%26%20Assurance">
+                                Enquire on WhatsApp <span class="material-symbols-outlined">arrow_right_alt</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Service Card 5 -->
+                    <div class="bg-surface-container-low rounded-xl flex flex-col justify-between hover:bg-surface-container-high transition-all duration-300 group editorial-shadow overflow-hidden">
+                        <div>
+                            <img src="./companyregistration.jpg" alt="Business Registration" class="service-card-img"/>
+                            <div class="p-8">
+                                <h3 class="font-headline text-2xl mb-3 text-primary">Corporate Law Services</h3>
+                                <p class="text-on-surface-variant text-sm">End-to-end guidance on company incorporation, ROC compliance, statutory filings, and MSME registrations — handled with precision and speed.</p>
+                                <ul class="space-y-2 mb-4 mt-4">
+                                    <li class="flex items-center gap-2 text-xs font-medium text-primary">
+                                        <span class="material-symbols-outlined text-secondary text-sm">check_circle</span> Company & LLP Incorporation
+                                    </li>
+                                    <li class="flex items-center gap-2 text-xs font-medium text-primary">
+                                        <span class="material-symbols-outlined text-secondary text-sm">check_circle</span> ROC Compliances & Statutory Filings
+                                    </li>
+                                    <li class="flex items-center gap-2 text-xs font-medium text-primary">
+                                        <span class="material-symbols-outlined text-secondary text-sm">check_circle</span> MSME & Startup India Registration
+                                    </li>
+                                    <li class="flex items-center gap-2 text-xs font-medium text-primary">
+                                        <span class="material-symbols-outlined text-secondary text-sm">check_circle</span> Partnership Deed & Agreement Drafting
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="px-8 pb-8">
+                            <a class="inline-flex items-center text-secondary font-bold text-sm gap-2 group-hover:gap-4 transition-all" href="https://wa.me/918669291713?text=Hi%20Pravin%20Belokar%20%26%20Associates%2C%20I%20want%20help%20with%20Business%20Registration">
+                                Enquire on WhatsApp <span class="material-symbols-outlined">arrow_right_alt</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Service Card 6 -->
+                    <div class="bg-surface-container-low rounded-xl flex flex-col justify-between hover:bg-surface-container-high transition-all duration-300 group editorial-shadow overflow-hidden">
+                        <div>
+                            <img src="./loan&funding.jpeg" alt="Loan & Funding Assistance" class="service-card-img"/>
+                            <div class="p-8">
+                                <h3 class="font-headline text-2xl mb-3 text-primary">Loan & Funding Assistance</h3>
+                                <p class="text-on-surface-variant text-sm">We help you prepare strong project reports, liaise with financial institutions, and secure the right funding — loans, government schemes, or startup grants.</p>
+                                <ul class="space-y-2 mb-4 mt-4">
+                                    <li class="flex items-center gap-2 text-xs font-medium text-primary">
+                                        <span class="material-symbols-outlined text-secondary text-sm">check_circle</span> Project Report Preparation for Bank Loans
+                                    </li>
+                                    <li class="flex items-center gap-2 text-xs font-medium text-primary">
+                                        <span class="material-symbols-outlined text-secondary text-sm">check_circle</span> Liaison with Banks & Financial Institutions
+                                    </li>
+                                    <li class="flex items-center gap-2 text-xs font-medium text-primary">
+                                        <span class="material-symbols-outlined text-secondary text-sm">check_circle</span> MSME & Government Scheme Applications
+                                    </li>
+                                    <li class="flex items-center gap-2 text-xs font-medium text-primary">
+                                        <span class="material-symbols-outlined text-secondary text-sm">check_circle</span> Advisory on Funding Strategy & Documentation
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="px-8 pb-8">
+                            <a class="inline-flex items-center text-secondary font-bold text-sm gap-2 group-hover:gap-4 transition-all" href="https://wa.me/918669291713?text=Hi%20Pravin%20Belokar%20%26%20Associates%2C%20I%20want%20help%20with%20Loan%20%26%20Funding%20Assistance">
+                                Enquire on WhatsApp <span class="material-symbols-outlined">arrow_right_alt</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section class="py-[60px] bg-primary text-on-primary overflow-hidden" id="about">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    <div class="relative">
+                        <div class="absolute -top-12 -left-12 w-48 h-48 bg-secondary/20 rounded-full blur-2xl"></div>
+                            <img
+                            alt="Pravin Belokar"
+                            class="h-[400px] md:h-[600px] w-full object-cover rounded-2xl relative z-10 editorial-shadow"
+                            src="./pravin_belokar.png"
+                            />                    
+                        </div>
+                    <div class="space-y-8">
+                        <h2 class="font-headline text-4xl md:text-5xl leading-tight">Expertise Rooted in <span class="text-secondary-fixed-dim italic">Integrity.</span></h2>
+                        <p class="text-on-primary-container text-lg leading-relaxed">
+                            At Pravin Belokar & Associates, we believe that great accounting is more than just numbers — it's about building the financial foundation your business stands on. With a commitment to transparency, accuracy, and personalised service, we have earned the trust of entrepreneurs, SMEs, and corporates across India. Every client relationship we build is rooted in one simple promise — your financial clarity is our responsibility.
+                        </p>
+                        <!-- <div class="grid grid-cols-2 gap-8 py-6 border-y border-outline-variant/10">
+                            <div>
+                                <div class="text-4xl font-headline text-secondary-fixed-dim">2+</div>
+                                <div class="text-xs uppercase tracking-widest text-on-primary-container mt-1">Years of Excellence</div>
+                            </div>
+                            <div>
+                                <div class="text-4xl font-headline text-secondary-fixed-dim">100+</div>
+                                <div class="text-xs uppercase tracking-widest text-on-primary-container mt-1">Corporate Clients</div>
+                            </div>
+                        </div> -->
+                        <p class="text-on-primary-container/80 italic">
+                            "We established this firm with a single purpose — to be the financial backbone that every growing business needs. At Pravin Belokar & Associates, we don't just file returns and close books. We understand your business, anticipate your challenges, and deliver solutions that keep you compliant, confident, and always a step ahead."
+                        </p>
+                        <div class="flex items-center gap-4">
+                            <div>
+                                <div class="font-bold">CA Pravin Abhaykumar Belokar</div>
+                                <div class="text-xs text-secondary-fixed-dim">Managing Partner, ACA, Bcom</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Address & Contact Section -->
+        <section class="py-[60px] bg-surface-container-low" id="contact">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                    <div class="lg:col-span-5 space-y-10">
+                        <div>
+                            <h2 class="font-headline text-4xl mb-6">Visit Our Practice</h2>
+                            <p class="text-on-surface-variant leading-relaxed">Located in the heart of Guntur, our office is designed for focused strategy and client confidentiality.</p>
+                        </div>
+                        <div class="space-y-6">
+                            <div class="flex gap-4">
+                                <div class="w-10 h-10 bg-primary/5 rounded-lg flex items-center justify-center flex-shrink-0">
+                                    <span class="material-symbols-outlined text-primary">location_on</span>
+                                </div>
+                                <div>
+                                    <div class="font-bold text-primary">Office</div>
+                                    <div class="text-on-surface-variant text-sm">Beside Jain Mandir, Near Prajakta School, New Khetan Nagar, Kaulkhed, Akola, Maharashtra- 444102</div>
+                                </div>
+                            </div>
+                            <div class="flex gap-4">
+                                <div class="w-10 h-10 bg-primary/5 rounded-lg flex items-center justify-center flex-shrink-0">
+                                    <span class="material-symbols-outlined text-primary">call</span>
+                                </div>
+                                <div>
+                                    <div class="font-bold text-primary">Contact Number</div>
+                                    <div class="text-on-surface-variant text-sm">+91 86692 91713</div>
+                                </div>
+                            </div>
+                            <div class="flex gap-4">
+                                <div class="w-10 h-10 bg-primary/5 rounded-lg flex items-center justify-center flex-shrink-0">
+                                    <span class="material-symbols-outlined text-primary">Mail</span>
+                                </div>
+                                <div>
+                                    <div class="font-bold text-primary">Mail-Id</div>
+                                    <div class="text-on-surface-variant text-sm">capravinjain24@gmail.com</div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="h-64 rounded-xl overflow-hidden shadow-inner grayscale opacity-80 hover:grayscale-0 transition-all duration-500">
+                            <img alt="Map View" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD_FJg_btSMgfQcoLqvUkYyNhcrNpLqA4c6VdGFVnee8D0ZDShzsWks1CelarlTqwMF4L_RSgMsI0syJ4swxZAAiQDu51cjfs3OvAqIRfzsaZsse2GopEQOOv6JljPEFw-Qh5l591JzNGA3giq3CBfJRiMrZYuFNnSXDJ-sDT0SXWB5QjNvnlCWUQ-R9SEQ5WUTBBXyaChHj72DIqQbumi4hnOEOR-A6_Jjv1B2eJNHsnu1fvj5IhsQoJapLuEsQVK63IsRlbgBFpBV"/>
+                        </div> -->
+                    </div>
+
+                    <!-- Consultation Form -->
+                    <div class="lg:col-span-7">
+                        <div class="bg-surface-container-lowest p-10 rounded-2xl editorial-shadow border border-outline-variant/10">
+                            <h3 class="font-headline text-3xl mb-2 text-primary">Request a Consultation</h3>
+                            <p class="text-on-surface-variant mb-8">Submit your details and our senior partner will contact you directly on WhatsApp.</p>
+                            <form id="consultationForm" class="space-y-6">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div class="space-y-2">
+                                        <label class="text-xs font-bold uppercase tracking-widest text-on-surface-variant">Your Name</label>
+                                        <input id="userName" class="w-full bg-surface-container-low border-none rounded-lg p-4 focus:ring-2 focus:ring-primary/20 transition-all" placeholder="Example: Akash Sharma" type="text" required/>
+                                    </div>
+                                    <div class="space-y-2">
+                                        <label class="text-xs font-bold uppercase tracking-widest text-on-surface-variant">Phone Number</label>
+                                        <input id="userPhone" class="w-full bg-surface-container-low border-none rounded-lg p-4 focus:ring-2 focus:ring-primary/20 transition-all" placeholder="+91 XXXXX XXXXX" type="tel" required/>
+                                    </div>
+                                </div>
+                                <div class="space-y-2">
+                                    <label class="text-xs font-bold uppercase tracking-widest text-on-surface-variant">Interested Service</label>
+                                    <select id="userService" class="w-full bg-surface-container-low border-none rounded-lg p-4 focus:ring-2 focus:ring-primary/20 transition-all appearance-none" required>
+                                        <option>Accounting & Bookkeeping</option>
+                                        <option>Direct Taxation Services</option>
+                                        <option>Indirect Taxation Services</option>
+                                        <option>Audit & Assurance</option>
+                                        <option>Business Registration</option>
+                                        <option>Corporate Law Services</option>
+                                        <option>Loan & Funding Assistance</option>
+                                        <option>Certification Services</option>
+                                        <option>Other Services</option>
+                                    </select>
+                                </div>
+                                <div class="space-y-2">
+                                    <label class="text-xs font-bold uppercase tracking-widest text-on-surface-variant">Brief Message (Optional)</label>
+                                    <textarea id="userMessage" class="w-full bg-surface-container-low border-none rounded-lg p-4 focus:ring-2 focus:ring-primary/20 transition-all" placeholder="How can we assist you today?" rows="4"></textarea>
+                                </div>
+                                <button class="w-full bg-primary text-on-primary font-bold py-4 rounded-xl flex items-center justify-center gap-3 hover:bg-primary-container transition-all shadow-lg shadow-primary/10" type="submit">
+                                    <span class="material-symbols-outlined">send</span>
+                                    Submit
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-950 dark:bg-black text-slate-100 py-16">
+        <div class="max-w-7xl mx-auto px-8 grid grid-cols-1 md:grid-cols-3 gap-12">
+            <!-- Col 1: Brand -->
+            <div class="space-y-6">
+                <div class="text-lg font-serif font-semibold text-amber-500">Pravin Belokar & Associates</div>
+                <p class="text-slate-400 text-xs leading-relaxed max-w-xs">
+                    Founded by CA Pravin Belokar (ACA), our firm brings together deep financial expertise and a clientfirst approach. From startups to established enterprises, we serve businesses across India with precision-driven accounting, taxation, and compliance services — because your financial peace of mind is our priority.
+                </p>
+                <div class="flex gap-4">
+                    <!-- LinkedIn -->
+                    <a class="w-12 h-12 bg-slate-800 rounded-full flex items-center justify-center hover:bg-amber-500 transition-colors"
+                    href="https://www.linkedin.com/in/ca-pravin-belokar" 
+                    target="_blank" rel="noopener noreferrer">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                            <path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.95v5.66H9.36V9h3.41v1.56h.05c.48-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 110-4.12 2.06 2.06 0 010 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/>
+                        </svg>
+                    </a>
+
+                    <!-- Instagram -->
+                    <a class="w-12 h-12 bg-slate-800 rounded-full flex items-center justify-center hover:bg-amber-500 transition-colors"
+                    href="https://instagram.com/dummyprofile"
+                    target="_blank" rel="noopener noreferrer">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                            <path d="M7.75 2h8.5A5.75 5.75 0 0122 7.75v8.5A5.75 5.75 0 0116.25 22h-8.5A5.75 5.75 0 012 16.25v-8.5A5.75 5.75 0 017.75 2zm0 1.5A4.25 4.25 0 003.5 7.75v8.5A4.25 4.25 0 007.75 20.5h8.5a4.25 4.25 0 004.25-4.25v-8.5A4.25 4.25 0 0016.25 3.5h-8.5zm8.88 1.62a1.13 1.13 0 110 2.26 1.13 1.13 0 010-2.26zM12 7a5 5 0 110 10 5 5 0 010-10zm0 1.5A3.5 3.5 0 1015.5 12 3.5 3.5 0 0012 8.5z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Col 2: Expertise -->
+            <div>
+                <h4 class="text-amber-500 text-xs font-bold uppercase tracking-widest mb-6">Expertise</h4>
+                <ul class="space-y-4">
+                    <li><a class="text-slate-400 text-xs hover:text-slate-100 hover:translate-x-1 transition-all inline-block" href="#services">Accounting & Bookkeeping</a></li>
+                    <li><a class="text-slate-400 text-xs hover:text-slate-100 hover:translate-x-1 transition-all inline-block" href="#services">Direct Taxation</a></li>
+                    <li><a class="text-slate-400 text-xs hover:text-slate-100 hover:translate-x-1 transition-all inline-block" href="#services">Indirect Taxation</a></li>
+                    <li><a class="text-slate-400 text-xs hover:text-slate-100 hover:translate-x-1 transition-all inline-block" href="#services">Audit & Assurance</a></li>
+                    <li><a class="text-slate-400 text-xs hover:text-slate-100 hover:translate-x-1 transition-all inline-block" href="#services">Corporate Law Services</a></li>
+                    <li><a class="text-slate-400 text-xs hover:text-slate-100 hover:translate-x-1 transition-all inline-block" href="#services">Loan & Funding Assistance</a></li>
+                </ul>
+            </div>
+
+            <!-- Col 3: Quick Links (Government Portals) -->
+            <div>
+                <h4 class="text-amber-500 text-xs font-bold uppercase tracking-widest mb-6">Quick Links</h4>
+                <ul class="space-y-4">
+                    <li><a class="text-slate-400 text-xs hover:text-slate-100 hover:translate-x-1 transition-all inline-block" href="https://www.incometax.gov.in" target="_blank" rel="noopener noreferrer">Income Tax Dept.</a></li>
+                    <li><a class="text-slate-400 text-xs hover:text-slate-100 hover:translate-x-1 transition-all inline-block" href="https://www.gst.gov.in" target="_blank" rel="noopener noreferrer">Goods and Service Tax (GST)</a></li>
+                    <li><a class="text-slate-400 text-xs hover:text-slate-100 hover:translate-x-1 transition-all inline-block" href="https://www.mahagst.gov.in" target="_blank" rel="noopener noreferrer">Maha GST</a></li>
+                    <li><a class="text-slate-400 text-xs hover:text-slate-100 hover:translate-x-1 transition-all inline-block" href="https://www.cbic.gov.in" target="_blank" rel="noopener noreferrer">Central Board of Excise & Customs</a></li>
+                    <li><a class="text-slate-400 text-xs hover:text-slate-100 hover:translate-x-1 transition-all inline-block" href="https://www.mca.gov.in" target="_blank" rel="noopener noreferrer">Ministry of Company Affairs</a></li>
+                    <li><a class="text-slate-400 text-xs hover:text-slate-100 hover:translate-x-1 transition-all inline-block" href="https://www.epfindia.gov.in" target="_blank" rel="noopener noreferrer">Employees Provident Fund</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto px-8 mt-16 pt-8 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4 text-slate-500 text-xs">
+            <div>© 2026 Pravin Belokar & Associates. Chartered Accountants. All rights reserved.</div>
+        </div>
+    </footer>
+
+    <!-- Floating Action Button for WhatsApp -->
+    <a id="whatsappFloat"
+    class="fixed bottom-8 right-8 bg-[#25D366] text-white h-14 min-w-[56px] rounded-2xl shadow-2xl z-50 flex items-center px-4 group opacity-0 translate-y-8 pointer-events-none"
+    href="https://wa.me/918669291713?text=Hello%2C%20I%20would%20like%20to%20enquire%20about%20your%20services%20at%20Pravin%20Belokar%20%26%20Associates.">
+        <span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">chat</span>
+        <span class="max-w-0 overflow-hidden group-hover:max-w-xs group-hover:ml-3 transition-all duration-500 whitespace-nowrap font-bold text-sm hidden lg:inline">Enquire Now</span>
+    </a>
+
+    <script>
+        // Mobile Menu Toggle
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const closeMenu = document.getElementById('closeMenu');
+        const mobileBackdrop = document.getElementById('mobileBackdrop');
+
+        function openMenu() {
+            mobileMenu.classList.add('active');
+            mobileBackdrop.classList.add('active');
+            hamburger.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeMenuFn() {
+            mobileMenu.classList.remove('active');
+            mobileBackdrop.classList.remove('active');
+            hamburger.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        hamburger.addEventListener('click', function(e) {
+            e.stopPropagation();
+            openMenu();
+        });
+
+        closeMenu.addEventListener('click', function(e) {
+            e.stopPropagation();
+            closeMenuFn();
+        });
+
+        mobileBackdrop.addEventListener('click', closeMenuFn);
+
+        const mobileLinks = mobileMenu.querySelectorAll('a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', closeMenuFn);
+        });
+
+        mobileMenu.addEventListener('touchstart', function(e) {
+            if (!mobileMenu.classList.contains('active')) {
+                e.stopPropagation();
+            }
+        }, { passive: true });
+
+        // Hero Slideshow
+        function initSlideshow(container) {
+            const slides = container.querySelectorAll('.hero-slide');
+            if (!slides.length) return;
+            let current = 0;
+            setInterval(() => {
+                slides[current].classList.remove('active');
+                current = (current + 1) % slides.length;
+                slides[current].classList.add('active');
+            }, 4000);
+        }
+
+        document.querySelectorAll('.hero-slideshow').forEach(initSlideshow);
+
+        // WhatsApp Form Submission
+        document.getElementById('consultationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const name = document.getElementById('userName').value;
+            const phone = document.getElementById('userPhone').value;
+            const service = document.getElementById('userService').value;
+            const message = document.getElementById('userMessage').value;
+
+            let whatsappMessage = `Hi, my name is ${name}. I need help with ${service}. My number is ${phone}.`;
+
+            if (message.trim() !== '') {
+                whatsappMessage += ` Additional details: ${message}`;
+            }
+
+            const encodedMessage = encodeURIComponent(whatsappMessage);
+            window.open(`https://wa.me/918669291713?text=${encodedMessage}`, '_blank');
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href !== '#') {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                }
+            });
+        });
+
+        // Floating WhatsApp button
+        const whatsappFloat = document.getElementById('whatsappFloat');
+
+        function toggleFloatButton() {
+            if (window.scrollY > 300) {
+                whatsappFloat.classList.remove('opacity-0', 'translate-y-8', 'pointer-events-none');
+                whatsappFloat.classList.add('opacity-100', 'translate-y-0', 'pointer-events-auto');
+            } else {
+                whatsappFloat.classList.add('opacity-0', 'translate-y-8', 'pointer-events-none');
+                whatsappFloat.classList.remove('opacity-100', 'translate-y-0', 'pointer-events-auto');
+            }
+        }
+
+        window.addEventListener('scroll', toggleFloatButton);
+        toggleFloatButton();
+    </script>
+</body>
+</html>
